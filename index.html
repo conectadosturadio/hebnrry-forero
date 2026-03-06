@@ -1125,7 +1125,7 @@ document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal();
 
 // ─── VIDEOS / PAGINACIÓN ─────────────────
 const VIDEOS_PER_PAGE = 5;
-let allVideos = [];
+let allVideos  = [];
 let currentPage = 0;
 const videosGrid  = document.getElementById('videos-grid');
 const videosCount = document.getElementById('videos-count');
@@ -1137,44 +1137,100 @@ const pagInfo     = document.getElementById('pag-info');
 const CHANNEL_ID = 'UCubPnuTolaj0cJv0SK67rcw';
 const YT_API_KEY = 'AIzaSyCdWxkJGmL0Hq5bn_MX_XoTuuoTk6JMjT8';
 
-const STATIC_VIDEOS = [
-  { id: { videoId: 'djt6KCpybmM' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 4 MARZO DE 2026',       publishedAt: '2026-03-04T12:00:00Z' } },
-  { id: { videoId: 'DwHi-R-0R1o' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 3 DE MARZO DE 2026',     publishedAt: '2026-03-03T12:00:00Z' } },
-  { id: { videoId: 'MxrtagqBbK0' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 2 DE MARZO DE 2026',     publishedAt: '2026-03-02T12:00:00Z' } },
-  { id: { videoId: '-SRcX4uM6ps' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 26 DE FEBRERO DE 2026',  publishedAt: '2026-02-28T12:00:00Z' } },
-  { id: { videoId: 'sghnEI8fG8Q' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 26 FEBRERO DE 2026',    publishedAt: '2026-02-27T12:00:00Z' } },
-  { id: { videoId: 'afr5qH5G1Gc' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 25 DE FEBRERO DE 2026',   publishedAt: '2026-02-26T12:00:00Z' } },
-  { id: { videoId: 'WWw1IjKtyAA' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 24 FEBRERO DE 2026',      publishedAt: '2026-02-25T12:00:00Z' } },
-  { id: { videoId: 'zAIF2HUAxoo' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 23 DE FEBRERO DE 2026',   publishedAt: '2026-02-24T12:00:00Z' } },
-  { id: { videoId: 'KddrQ494iyc' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 20 FEBRERO DE 2026',    publishedAt: '2026-02-21T12:00:00Z' } },
-  { id: { videoId: 'HgST9iUaLg0' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 19 DE FEBRERO DE 2026', publishedAt: '2026-02-20T12:00:00Z' } },
-  { id: { videoId: 'KeQ6ZaF7b2Q' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 18 DE FEBRERO DE 2026',   publishedAt: '2026-02-19T12:00:00Z' } },
-  { id: { videoId: 'bShX65H-3Ak' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 13 DE FEBRERO DE 2026', publishedAt: '2026-02-14T12:00:00Z' } },
-  { id: { videoId: 'Dhpp0mc6Ims' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 12 FEBRERO 2026',         publishedAt: '2026-02-13T12:00:00Z' } },
-  { id: { videoId: 'ONislLgguOw' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 11 FEBRERO DE 2026',    publishedAt: '2026-02-12T12:00:00Z' } },
-  { id: { videoId: 'LY_ZE1YFDJE' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 10 FEBRERO DE 2026',    publishedAt: '2026-02-11T12:00:00Z' } },
-  { id: { videoId: 'xlq-bttyLYI' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 9 DE FEBRERO DE 2026',  publishedAt: '2026-02-10T12:00:00Z' } },
-  { id: { videoId: 'H0H_WWuH48c' }, snippet: { title: '#alaire CUARTO PODER RADIO 19 ENERO DE 2026',                        publishedAt: '2026-01-19T12:00:00Z' } },
-  { id: { videoId: 'mFIIDDR8QSc' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 15 ENERO DE 2026',      publishedAt: '2026-01-15T12:00:00Z' } },
-  { id: { videoId: '1Nd1P1jNBYw' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 9 ENERO DE 2026',       publishedAt: '2026-01-09T12:00:00Z' } },
-  { id: { videoId: 'Hs4CMXn4sC4' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 29 ENERO DE 2026',      publishedAt: '2026-01-29T12:00:00Z' } },
-];
+// ── MÉTODO 1: RSS feed nativo de YouTube (sin API key, sin cuota, siempre actualizado) ──
+async function fetchFromRSS() {
+  try {
+    // Usamos un proxy CORS público para acceder al RSS de YouTube
+    const rssUrl  = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+    const proxy   = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+    const res     = await fetch(proxy, { cache: 'no-store' });
+    if (!res.ok) throw new Error('RSS proxy error');
+    const data    = await res.json();
+    const parser  = new DOMParser();
+    const xml     = parser.parseFromString(data.contents, 'application/xml');
+    const entries = Array.from(xml.querySelectorAll('entry'));
+    if (!entries.length) throw new Error('RSS vacío');
 
+    return entries.map(e => {
+      const videoId    = e.querySelector('videoId')?.textContent
+                      || e.querySelector('id')?.textContent?.split(':').pop() || '';
+      const title      = e.querySelector('title')?.textContent || 'Sin título';
+      const published  = e.querySelector('published')?.textContent || new Date().toISOString();
+      return {
+        id:      { videoId },
+        snippet: { title, publishedAt: published }
+      };
+    });
+  } catch(e) {
+    console.warn('RSS falló, intentando API:', e.message);
+    return null;
+  }
+}
+
+// ── MÉTODO 2: RSS alternativo via rssproxy.migor.net ──
+async function fetchFromRSS2() {
+  try {
+    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+    const proxy  = `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`;
+    const res    = await fetch(proxy, { cache: 'no-store' });
+    if (!res.ok) throw new Error('RSS2 error');
+    const text   = await res.text();
+    const parser = new DOMParser();
+    const xml    = parser.parseFromString(text, 'application/xml');
+    const entries = Array.from(xml.querySelectorAll('entry'));
+    if (!entries.length) throw new Error('RSS2 vacío');
+
+    return entries.map(e => {
+      const videoId   = e.querySelector('videoId')?.textContent
+                     || e.querySelector('id')?.textContent?.split(':').pop() || '';
+      const title     = e.querySelector('title')?.textContent || 'Sin título';
+      const published = e.querySelector('published')?.textContent || new Date().toISOString();
+      return {
+        id:      { videoId },
+        snippet: { title, publishedAt: published }
+      };
+    });
+  } catch(e) {
+    console.warn('RSS2 falló, intentando YouTube API:', e.message);
+    return null;
+  }
+}
+
+// ── MÉTODO 3: YouTube Data API (cuota limitada, último recurso) ──
+async function fetchFromAPI() {
+  try {
+    let videos = [], token = '', pages = 0;
+    do {
+      const url  = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&order=date&maxResults=50${token?'&pageToken='+token:''}&key=${YT_API_KEY}`;
+      const res  = await fetch(url);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      videos.push(...(data.items || []));
+      token = data.nextPageToken || '';
+      pages++;
+    } while (token && pages < 4);
+    return videos.length ? videos : null;
+  } catch(e) {
+    console.warn('API de YouTube falló:', e.message);
+    return null;
+  }
+}
+
+// ── RENDER ──
 function renderPage(page) {
-  // Clear grid
   videosGrid.innerHTML = '';
   const start = page * VIDEOS_PER_PAGE;
   const end   = Math.min(start + VIDEOS_PER_PAGE, allVideos.length);
   const total = Math.ceil(allVideos.length / VIDEOS_PER_PAGE);
 
   for (let i = start; i < end; i++) {
-    const v = allVideos[i];
-    const vid    = v.id.videoId || v.id;
-    const title  = v.snippet.title;
-    const date   = new Date(v.snippet.publishedAt);
+    const v       = allVideos[i];
+    const vid     = v.id.videoId || v.id;
+    const title   = v.snippet.title;
+    const date    = new Date(v.snippet.publishedAt);
     const dateStr = date.toLocaleDateString('es-CO', { day:'numeric', month:'long', year:'numeric' });
-    const thumb  = `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
-    const isNew  = i < 3;
+    const thumb   = `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
+    const isNew   = i < 3;
 
     const card = document.createElement('div');
     card.className = 'video-card fade-in';
@@ -1201,39 +1257,47 @@ function renderPage(page) {
   if (total > 1) pagRow.style.display = 'flex';
 }
 
-function initVideos(videos) {
+function initVideos(videos, source) {
   ['skel1','skel2','skel3','skel4','skel5'].forEach(id => { const el=document.getElementById(id); if(el) el.remove(); });
   allVideos = videos;
   document.getElementById('video-count').textContent = videos.length;
   videosCount.textContent = `${videos.length} episodios`;
+  console.log(`✅ Videos cargados desde: ${source} (${videos.length} videos)`);
   renderPage(0);
 }
 
-pagPrev.onclick = () => { renderPage(currentPage - 1); window.scrollTo({top: document.getElementById('podcast').offsetTop - 80, behavior:'smooth'}); };
-pagNext.onclick = () => { renderPage(currentPage + 1); window.scrollTo({top: document.getElementById('podcast').offsetTop - 80, behavior:'smooth'}); };
+pagPrev.onclick = () => {
+  renderPage(currentPage - 1);
+  window.scrollTo({ top: document.getElementById('podcast').offsetTop - 80, behavior: 'smooth' });
+};
+pagNext.onclick = () => {
+  renderPage(currentPage + 1);
+  window.scrollTo({ top: document.getElementById('podcast').offsetTop - 80, behavior: 'smooth' });
+};
 
-async function fetchFromAPI() {
-  try {
-    let videos = [], token = '', pages = 0;
-    do {
-      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&order=date&maxResults=50${token?'&pageToken='+token:''}&key=${YT_API_KEY}`;
-      const res  = await fetch(url);
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      videos.push(...(data.items || []));
-      token = data.nextPageToken || '';
-      pages++;
-    } while (token && pages < 4);
-    return videos.length ? videos : null;
-  } catch(e) {
-    console.warn('API error, usando datos estáticos:', e);
-    return null;
-  }
-}
-
+// ── INIT: intenta RSS → RSS2 → API YouTube, en cascada ──
 (async function init() {
-  const apiVideos = await fetchFromAPI();
-  initVideos(apiVideos || STATIC_VIDEOS);
+  // Método 1: RSS principal
+  const rss1 = await fetchFromRSS();
+  if (rss1 && rss1.length) { initVideos(rss1, 'RSS YouTube (allorigins)'); return; }
+
+  // Método 2: RSS alternativo
+  const rss2 = await fetchFromRSS2();
+  if (rss2 && rss2.length) { initVideos(rss2, 'RSS YouTube (corsproxy)'); return; }
+
+  // Método 3: YouTube Data API
+  const api = await fetchFromAPI();
+  if (api && api.length) { initVideos(api, 'YouTube Data API'); return; }
+
+  // Si todo falla, mostrar mensaje amigable
+  ['skel1','skel2','skel3','skel4','skel5'].forEach(id => { const el=document.getElementById(id); if(el) el.remove(); });
+  videosGrid.innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--gris-claro)">
+      <div style="font-size:2rem;margin-bottom:12px">📡</div>
+      <div style="font-family:'Rajdhani',sans-serif;font-size:1rem;margin-bottom:8px">No se pudo conectar con YouTube</div>
+      <div style="font-size:.8rem;color:var(--gris-medio)">Verifica tu conexión e intenta recargar la página</div>
+      <button onclick="location.reload()" style="margin-top:16px;padding:9px 24px;background:var(--neon-glow);color:var(--negro);border:none;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:700;cursor:pointer;letter-spacing:.1em">🔄 Recargar</button>
+    </div>`;
 })();
 </script>
 </body>
