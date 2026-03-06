@@ -3,1301 +3,582 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Henry Forero – Cuarto Poder Radio</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<title>Cuarto Poder Radio — Henry Forero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════
-   VARIABLES NEON — AZUL / NEGRO / BLANCO
-═══════════════════════════════════════ */
 :root {
-  --azul-profundo:   #04091a;
-  --azul-medio:      #071333;
-  --azul-vivo:       #1565c0;
-  --azul-brillante:  #1e88e5;
-  --azul-cielo:      #42a5f5;
-  --azul-claro:      #bbdefb;
-  --neon-cyan:       #00e5ff;
-  --neon-blue:       #2979ff;
-  --neon-ice:        #80d8ff;
-  --neon-glow:       #00b0ff;
-  --blanco:          #ffffff;
-  --blanco-hueso:    #e8f1fb;
-  --gris-claro:      #90a4be;
-  --gris-medio:      #546e88;
-  --negro:           #010815;
-  --acento:          #00e5ff;
-  --ticker-bg:       #071333;
-  --sombra-neon:     0 0 16px rgba(0,229,255,.55), 0 0 40px rgba(0,176,255,.25);
-  --sombra-card:     0 8px 40px rgba(0,0,0,.7), 0 0 1px rgba(0,229,255,.2);
-  --border-glow:     rgba(0,229,255,.35);
+  --ink:      #05080f;
+  --ink2:     #0b1220;
+  --ink3:     #111c30;
+  --steel:    #1a2740;
+  --cobalt:   #0f3d8c;
+  --electric: #1a6fff;
+  --spark:    #00aaff;
+  --ice:      #7dd3fc;
+  --white:    #ffffff;
+  --off:      #e8edf5;
+  --mist:     #94a3b8;
+  --dim:      #475569;
+  --red:      #dc2626;
+  --red2:     #ef4444;
+  --footer-h: 88px;
+  --r:        6px;
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-/* ═══════════════════════════════════════
-   FONDO — TEXTURA OSCURA NEON
-═══════════════════════════════════════ */
-body {
-  font-family: 'Source Sans 3', sans-serif;
-  background-color: var(--azul-profundo);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--ink);
+  color:var(--white);
+  min-height:100vh;
+  overflow-x:hidden;
+  padding-bottom:calc(var(--footer-h) + 24px);
   background-image:
-    radial-gradient(ellipse 80% 50% at 10% 0%,   rgba(0,100,200,.28) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 90% 100%,  rgba(0,229,255,.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 50% 50%,   rgba(7,19,51,.7)    0%, transparent 80%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%2304091a'/%3E%3Cpath d='M0 0 L60 60 M60 0 L0 60' stroke='%230d1f45' stroke-width='.4' opacity='.35'/%3E%3Ccircle cx='0' cy='0' r='1' fill='%231565c0' opacity='.08'/%3E%3Ccircle cx='60' cy='60' r='1' fill='%2300e5ff' opacity='.06'/%3E%3C/svg%3E");
-  color: var(--blanco);
-  min-height: 100vh;
-  overflow-x: hidden;
+    radial-gradient(ellipse 100% 50% at 50% -10%,rgba(15,61,140,.4) 0%,transparent 70%),
+    repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(255,255,255,.016) 80px),
+    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,.016) 80px);
 }
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--ink2)}
+::-webkit-scrollbar-thumb{background:var(--cobalt);border-radius:3px}
 
-/* ═══════════════════════════════════════
-   SCROLLBAR PERSONALIZADA
-═══════════════════════════════════════ */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--negro); }
-::-webkit-scrollbar-thumb { background: var(--azul-vivo); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--neon-glow); }
+/* ─── TICKER ─────────────────────────────── */
+.ticker{background:var(--red);height:34px;display:flex;align-items:center;overflow:hidden;position:relative;border-bottom:2px solid rgba(0,0,0,.3)}
+.ticker__lbl{flex-shrink:0;background:var(--ink);height:100%;padding:0 18px;display:flex;align-items:center;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--red2);border-right:2px solid rgba(255,255,255,.12);white-space:nowrap;z-index:2}
+.ticker__lbl span{color:#fff;margin-right:4px}
+.ticker__track{display:flex;white-space:nowrap;animation:tickRun 55s linear infinite;padding-left:40px}
+.ticker__track i{font-style:normal;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#fff;padding:0 36px}
+.ticker__track i::before{content:"◆ ";opacity:.55;font-size:.58rem}
+@keyframes tickRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ═══════════════════════════════════════
-   TICKER
-═══════════════════════════════════════ */
-.ticker-bar {
-  background: linear-gradient(90deg, var(--negro) 0%, var(--azul-medio) 50%, var(--negro) 100%);
-  padding: 9px 0;
-  overflow: hidden;
-  border-bottom: 1px solid var(--border-glow);
-  position: relative;
-  box-shadow: 0 2px 20px rgba(0,229,255,.15);
-}
-.ticker-label {
-  position: absolute; left: 0; top: 0;
-  background: var(--neon-glow);
-  color: var(--negro);
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .72rem; font-weight: 700;
-  letter-spacing: .18em; text-transform: uppercase;
-  padding: 0 16px; height: 100%;
-  display: flex; align-items: center;
-  z-index: 2;
-  box-shadow: 0 0 18px rgba(0,229,255,.8);
-}
-.ticker-label::after {
-  content: '';
-  position: absolute; right: -12px; top: 0;
-  border-top: 100% solid transparent;
-  border-left: 12px solid var(--neon-glow);
-}
-.ticker-track {
-  display: flex;
-  animation: ticker-move 40s linear infinite;
-  white-space: nowrap;
-  padding-left: 130px;
-}
-.ticker-track span {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .78rem; font-weight: 500;
-  color: var(--blanco-hueso); letter-spacing: .06em;
-  padding: 0 36px;
-}
-.ticker-track span::before { content: "◆ "; color: var(--neon-cyan); }
-@keyframes ticker-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* ─── BANNER ─────────────────────────────── */
+.banner{width:100%;background:var(--ink2);border-bottom:3px solid var(--electric);display:flex;justify-content:center;align-items:center;overflow:hidden;position:relative}
+.banner::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--spark),var(--electric),var(--spark),transparent)}
+.banner img{width:100%;max-width:1400px;height:auto;max-height:145px;object-fit:contain;display:block}
+.banner-fb{width:100%;max-width:1400px;height:118px;display:flex;align-items:center;justify-content:center;gap:20px;padding:0 30px}
+.banner-fb .logo{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;letter-spacing:.04em;color:#fff;line-height:1}
+.banner-fb .logo em{color:var(--electric);font-style:normal}
+.banner-fb .div{width:3px;height:55px;background:var(--electric);opacity:.4}
+.banner-fb .sub{font-family:'Barlow',sans-serif;font-size:.84rem;color:var(--mist);line-height:1.7}
+.banner-fb .sub strong{color:var(--spark);display:block;font-size:1rem}
 
-/* ═══════════════════════════════════════
-   BANNER HEADER
-═══════════════════════════════════════ */
-.banner-header {
-  width: 100%;
-  background: linear-gradient(135deg, var(--azul-medio) 0%, var(--negro) 100%);
-  border-bottom: 2px solid rgba(0,229,255,.4);
-  display: flex; justify-content: center; align-items: center;
-  overflow: hidden;
-  position: relative;
-}
-.banner-header::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(0,229,255,.04) 50%, transparent 100%);
-  animation: shimmer-banner 4s ease-in-out infinite;
-}
-@keyframes shimmer-banner { 0%,100%{opacity:0} 50%{opacity:1} }
-.banner-header img.banner-img {
-  width: 100%;
-  height: auto;
-  max-height: 200px;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-}
-@media (max-width: 768px) {
-  .banner-header img.banner-img { max-height: 120px; }
-}
-@media (max-width: 480px) {
-  .banner-header img.banner-img { max-height: 80px; }
-}
-.banner-placeholder {
-  width: 100%; max-width: 1280px;
-  height: 120px;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center; gap: 6px;
-  background: linear-gradient(90deg, var(--azul-profundo), rgba(7,19,51,.9), var(--azul-profundo));
-  border: 1px dashed rgba(0,229,255,.25);
-  border-radius: 4px; margin: 12px;
-  position: relative; overflow: hidden;
-}
-.banner-placeholder::before {
-  content: '';
-  position: absolute; top: 0; left: -100%;
-  width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0,229,255,.07), transparent);
-  animation: scan 3s ease-in-out infinite;
-}
-@keyframes scan { to { left: 140%; } }
-.banner-placeholder .bp-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.6rem; letter-spacing: .12em;
-  color: var(--blanco);
-  text-shadow: 0 0 30px rgba(0,229,255,.6), 0 0 60px rgba(0,229,255,.2);
-}
-.banner-placeholder .bp-sub {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .75rem; letter-spacing: .3em;
-  color: var(--neon-cyan); text-transform: uppercase;
-  text-shadow: 0 0 12px rgba(0,229,255,.7);
-}
-.banner-placeholder .bp-hint { font-size: .6rem; color: var(--gris-medio); margin-top: 4px; }
-@media (max-width: 768px) {
-  .banner-placeholder { height: 85px; }
-  .banner-placeholder .bp-title { font-size: 1.7rem; }
-}
+/* ─── NAV ────────────────────────────────── */
+.nav{background:rgba(5,8,15,.97);backdrop-filter:blur(18px);border-bottom:1px solid rgba(26,111,255,.28);position:sticky;top:0;z-index:200}
+.nav-w{max-width:1400px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:50px}
+.nav-brand{font-family:'Barlow Condensed',sans-serif;font-size:1.12rem;font-weight:800;letter-spacing:.06em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.pdot{width:8px;height:8px;border-radius:50%;background:var(--red2);animation:pdotA 1.8s ease-in-out infinite}
+@keyframes pdotA{0%{box-shadow:0 0 0 0 rgba(239,68,68,.7)}70%{box-shadow:0 0 0 10px rgba(239,68,68,0)}100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);text-decoration:none;padding:6px 13px;border-radius:4px;transition:color .2s,background .2s}
+.nav-links a:hover,.nav-links a.on{color:#fff;background:rgba(26,111,255,.18)}
+.nav-r{display:flex;align-items:center;gap:14px}
+.nav-clock{font-family:'Rajdhani',sans-serif;font-size:.86rem;font-weight:600;color:var(--spark);letter-spacing:.06em}
+.live-pill{background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.14em;padding:4px 12px;border-radius:20px;display:flex;align-items:center;gap:6px}
+.live-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+@media(max-width:680px){.nav-clock,.live-pill{display:none}.nav-links a{padding:6px 8px;font-size:.68rem}}
 
-/* ═══════════════════════════════════════
-   NAV
-═══════════════════════════════════════ */
-nav.main-nav {
-  background: rgba(1,8,21,.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,229,255,.3);
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 4px 30px rgba(0,0,0,.6), 0 1px 0 rgba(0,229,255,.2);
-}
-.nav-inner {
-  max-width: 1280px; margin: 0 auto;
-  padding: 0 20px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.nav-brand {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem; letter-spacing: .1em;
-  color: var(--blanco);
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 0; text-decoration: none;
-}
-.nav-brand .dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--neon-cyan);
-  box-shadow: 0 0 12px var(--neon-cyan), 0 0 24px rgba(0,229,255,.5);
-  animation: pulse-dot 1.4s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%,100% { box-shadow: 0 0 8px var(--neon-cyan), 0 0 20px rgba(0,229,255,.4); }
-  50%      { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0,229,255,.7), 0 0 60px rgba(0,229,255,.2); }
-}
-.nav-links { display: flex; gap: 2px; }
-.nav-links a {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .8rem; font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--gris-claro);
-  padding: 15px 18px; text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: color .2s, border-color .2s, text-shadow .2s;
-}
-.nav-links a:hover, .nav-links a.active {
-  color: var(--neon-cyan);
-  border-bottom-color: var(--neon-cyan);
-  text-shadow: 0 0 12px rgba(0,229,255,.7);
-}
-.nav-clock {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .85rem; font-weight: 600;
-  color: var(--neon-cyan);
-  letter-spacing: .06em;
-  text-shadow: 0 0 10px rgba(0,229,255,.6);
-}
-@media (max-width: 640px) {
-  .nav-clock { display: none; }
-  .nav-links a { padding: 15px 10px; font-size: .72rem; }
-}
+/* ─── PAGE ───────────────────────────────── */
+.page{max-width:1400px;margin:0 auto;padding:26px 22px}
 
-/* ═══════════════════════════════════════
-   PAGE WRAPPER
-═══════════════════════════════════════ */
-.page-wrapper {
-  max-width: 1280px; margin: 0 auto; padding: 28px 20px 140px;
-}
+/* ─── HERO ───────────────────────────────── */
+.hero{display:grid;grid-template-columns:1fr 330px;gap:22px;margin-bottom:34px}
+@media(max-width:960px){.hero{grid-template-columns:1fr}}
 
-/* ═══════════════════════════════════════
-   RADIO STREAMING PLAYER — PIE FIJO
-═══════════════════════════════════════ */
-.footer-player {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  z-index: 500;
-  background: linear-gradient(180deg, rgba(1,8,21,.0) 0%, rgba(1,8,21,.98) 100%);
-  padding: 0;
-}
-.footer-player-inner {
-  background: linear-gradient(90deg, var(--negro) 0%, var(--azul-medio) 30%, rgba(0,100,180,.18) 60%, var(--azul-medio) 80%, var(--negro) 100%);
-  border-top: 1px solid rgba(0,229,255,.4);
-  box-shadow: 0 -4px 40px rgba(0,229,255,.15), 0 -1px 0 rgba(0,229,255,.1), inset 0 1px 0 rgba(255,255,255,.04);
-  padding: 10px 24px;
-  display: flex; align-items: center; gap: 16px;
-  position: relative; overflow: hidden;
-}
-.footer-player-inner::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(0,229,255,.04) 50%, transparent 100%);
-  animation: shimmer 4s ease-in-out infinite;
-}
-@keyframes shimmer { 0%,100%{opacity:.3} 50%{opacity:1} }
-.fp-icon {
-  width: 42px; height: 42px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--azul-vivo), var(--neon-glow));
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 0 16px rgba(0,229,255,.5), 0 0 30px rgba(0,176,255,.3);
-  animation: spin-icon 5s linear infinite;
-}
-@keyframes spin-icon { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-.fp-info { flex: 1; min-width: 0; }
-.fp-label {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .6rem; letter-spacing: .2em;
-  color: var(--neon-cyan); text-transform: uppercase;
-  text-shadow: 0 0 8px rgba(0,229,255,.7);
-}
-.fp-station {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .9rem; font-weight: 600;
-  color: var(--blanco);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.fp-vol { display: flex; align-items: center; gap: 8px; }
-.fp-vol-icon { font-size: .85rem; color: var(--neon-cyan); }
-.fp-vol input[type=range] {
-  width: 80px; height: 4px;
-  -webkit-appearance: none;
-  background: rgba(255,255,255,.15); border-radius: 2px; cursor: pointer;
-}
-.fp-vol input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px; height: 12px; border-radius: 50%;
-  background: var(--neon-cyan);
-  box-shadow: 0 0 8px rgba(0,229,255,.8);
-}
-.fp-controls { display: flex; gap: 8px; align-items: center; }
-.fp-btn {
-  background: rgba(0,100,180,.25);
-  border: 1px solid rgba(0,229,255,.4);
-  color: var(--blanco);
-  font-family: 'Rajdhani', sans-serif; font-weight: 600;
-  font-size: .72rem; letter-spacing: .1em;
-  padding: 7px 16px; border-radius: 5px; cursor: pointer;
-  transition: all .2s;
-}
-.fp-btn:hover { background: var(--neon-glow); border-color: var(--neon-cyan); color: var(--negro); box-shadow: 0 0 14px rgba(0,229,255,.5); }
-.fp-btn.live {
-  background: linear-gradient(90deg, #c62828, #e53935);
-  border-color: transparent;
-  box-shadow: 0 0 14px rgba(229,57,53,.5);
-}
-.fp-btn.live:hover { opacity: .85; }
-.fp-progress {
-  flex: 1; min-width: 60px;
-  height: 3px; background: rgba(255,255,255,.1); border-radius: 2px; overflow: hidden;
-}
-.fp-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--azul-brillante), var(--neon-cyan));
-  width: 0%;
-  box-shadow: 0 0 8px var(--neon-cyan);
-  transition: width .5s linear;
-}
-.fp-spectrum {
-  display: flex; gap: 3px; align-items: flex-end; height: 24px;
-}
-.fp-bar-v {
-  width: 3px; background: var(--neon-cyan);
-  border-radius: 1px; min-height: 4px;
-  box-shadow: 0 0 4px rgba(0,229,255,.7);
-  animation: eq-bounce 1.2s ease-in-out infinite;
-}
-.fp-bar-v:nth-child(1) { animation-delay: 0s; }
-.fp-bar-v:nth-child(2) { animation-delay: .15s; }
-.fp-bar-v:nth-child(3) { animation-delay: .3s; }
-.fp-bar-v:nth-child(4) { animation-delay: .1s; }
-.fp-bar-v:nth-child(5) { animation-delay: .25s; }
-@keyframes eq-bounce {
-  0%,100% { height: 6px; opacity: .5; }
-  50% { height: 20px; opacity: 1; }
-}
-.fp-spectrum.paused .fp-bar-v { animation-play-state: paused; }
-audio { display: none; }
+.live-wrap{background:var(--ink2);border-radius:var(--r);overflow:hidden;border:1px solid rgba(26,111,255,.22);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.live-head{padding:11px 16px;background:var(--ink2);border-bottom:2px solid var(--electric);display:flex;align-items:center;gap:12px}
+.live-tag{background:var(--red);font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:800;letter-spacing:.15em;padding:3px 12px;border-radius:3px;display:flex;align-items:center;gap:5px}
+.live-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+.live-ttl{font-family:'Barlow Condensed',sans-serif;font-size:.97rem;font-weight:700;letter-spacing:.02em;color:var(--off)}
+.live-embed{position:relative;padding-bottom:56.25%;background:#000}
+.live-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 
-@media (max-width: 640px) {
-  .footer-player-inner { flex-wrap: wrap; padding: 8px 12px; gap: 10px; }
-  .fp-vol { display: none; }
-  .fp-progress { width: 100%; flex: none; }
-  .fp-spectrum { display: none; }
-}
+/* ─── SIDEBAR ────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--ink2);border:1px solid rgba(26,111,255,.18);border-radius:var(--r);overflow:hidden}
+.card-head{background:var(--ink3);padding:9px 15px;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--spark);border-bottom:1px solid rgba(26,111,255,.22);display:flex;align-items:center;gap:8px}
+.card-head::before{content:'';width:3px;height:13px;background:var(--electric);border-radius:2px}
+.card-body{padding:16px 14px}
 
-/* ═══════════════════════════════════════
-   SLIDER PUBLICIDAD — DELGADO
-═══════════════════════════════════════ */
-.ads-slider-section { margin-bottom: 28px; }
-.ads-slider-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .62rem; letter-spacing: .25em;
-  color: var(--gris-medio); text-transform: uppercase;
-  margin-bottom: 8px; padding-left: 2px;
-}
-.ads-slider-wrap {
-  position: relative; overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid rgba(0,229,255,.18);
-  box-shadow: 0 2px 20px rgba(0,0,0,.4), 0 0 0 1px rgba(0,229,255,.06);
-}
-.ads-track {
-  display: flex;
-  transition: transform .7s cubic-bezier(.4,0,.2,1);
-}
-.ad-slide {
-  min-width: 100%;
-  height: 120px;
-  position: relative; overflow: hidden; cursor: pointer;
-}
-.ad-slide img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  transition: transform .4s ease;
-  filter: brightness(.85) saturate(1.1);
-}
-.ad-slide:hover img { transform: scale(1.03); filter: brightness(.95); }
-.ad-slide .ad-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(1,8,21,.8) 0%, rgba(1,8,21,.3) 60%, transparent 100%);
-  display: flex; align-items: center; padding: 20px 28px;
-}
-.ad-slide .ad-text {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.3rem; font-weight: 700;
-  color: var(--blanco); line-height: 1.2;
-  text-shadow: 0 2px 12px rgba(0,0,0,.9);
-  max-width: 300px;
-}
-.ad-slide .ad-tag {
-  font-size: .58rem; letter-spacing: .22em;
-  color: var(--neon-cyan); text-transform: uppercase;
-  margin-bottom: 4px;
-  text-shadow: 0 0 8px rgba(0,229,255,.7);
-}
-.ads-dots {
-  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 5px; z-index: 3;
-}
-.ads-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,.3); cursor: pointer;
-  transition: all .3s;
-}
-.ads-dot.active { background: var(--neon-cyan); box-shadow: 0 0 8px var(--neon-cyan); transform: scale(1.5); }
-.ads-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(1,8,21,.75);
-  border: 1px solid rgba(0,229,255,.3);
-  color: var(--blanco); width: 28px; height: 28px;
-  border-radius: 50%; cursor: pointer; font-size: .85rem;
-  display: flex; align-items: center; justify-content: center;
-  z-index: 3; transition: all .2s;
-}
-.ads-arrow:hover { background: var(--neon-glow); color: var(--negro); box-shadow: 0 0 12px rgba(0,229,255,.6); }
-.ads-arrow.left { left: 10px; }
-.ads-arrow.right { right: 10px; }
-@media (max-width: 640px) { .ad-slide { height: 80px; } }
+.ch-av{width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,var(--cobalt),var(--electric));display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 12px;border:2px solid rgba(26,111,255,.4);box-shadow:0 0 28px rgba(26,111,255,.3)}
+.ch-name{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:900;text-align:center;color:#fff;margin-bottom:3px}
+.ch-handle{font-family:'Barlow',sans-serif;font-size:.76rem;color:var(--spark);text-align:center;margin-bottom:14px}
+.ch-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+.ch-stat{background:rgba(5,8,15,.6);border:1px solid rgba(26,111,255,.14);border-radius:5px;padding:9px 5px;text-align:center}
+.ch-stat-n{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--electric)}
+.ch-stat-l{font-size:.56rem;color:var(--mist);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
 
-/* ═══════════════════════════════════════
-   GRID PRINCIPAL
-═══════════════════════════════════════ */
-.main-grid {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 24px; margin-bottom: 36px;
-}
-@media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
+.btn-sub{display:block;width:100%;text-align:center;text-decoration:none;background:linear-gradient(90deg,#c41e1e,#a31515);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:11px 0;border-radius:5px;transition:filter .2s,transform .15s;box-shadow:0 4px 18px rgba(196,30,30,.35)}
+.btn-sub:hover{filter:brightness(1.12);transform:translateY(-1px)}
 
-/* VIDEO PRINCIPAL */
-.main-video-wrap {
-  background: var(--negro);
-  border-radius: 12px; overflow: hidden;
-  border: 1px solid rgba(0,229,255,.2);
-  box-shadow: 0 8px 50px rgba(0,0,0,.7), 0 0 0 1px rgba(0,229,255,.07), 0 0 30px rgba(0,100,200,.15);
-}
-.video-header {
-  background: linear-gradient(90deg, var(--negro), var(--azul-medio));
-  padding: 12px 18px;
-  display: flex; align-items: center; gap: 12px;
-  border-bottom: 1px solid rgba(0,229,255,.25);
-}
-.live-badge {
-  background: #c62828;
-  color: #fff; font-family: 'Rajdhani', sans-serif;
-  font-size: .68rem; font-weight: 700; letter-spacing: .15em;
-  padding: 3px 11px; border-radius: 3px;
-  display: flex; align-items: center; gap: 5px;
-  box-shadow: 0 0 14px rgba(198,40,40,.5);
-}
-.live-badge .live-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #fff; animation: blink 1s ease-in-out infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
-.video-title-bar {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .95rem; font-weight: 600; color: var(--blanco); flex: 1;
-}
-.video-embed { position: relative; padding-bottom: 56.25%; background: #000; }
-.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.soc-list{display:flex;flex-direction:column;gap:7px}
+.soc-item{display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:5px;border:1px solid rgba(26,111,255,.16);text-decoration:none;color:var(--off);font-family:'Barlow',sans-serif;font-size:.8rem;font-weight:500;transition:background .2s,border-color .2s,transform .15s}
+.soc-item:hover{background:rgba(26,111,255,.14);border-color:var(--electric);transform:translateX(3px)}
+.soc-icon{width:20px;text-align:center;font-size:.95rem;flex-shrink:0}
+.soc-arr{color:var(--dim);font-size:.8rem;margin-left:auto}
 
-/* SIDEBAR */
-.sidebar { display: flex; flex-direction: column; gap: 16px; }
-.sidebar-card {
-  background: linear-gradient(135deg, rgba(7,19,51,.9) 0%, rgba(1,8,21,.95) 100%);
-  border: 1px solid rgba(0,229,255,.15);
-  border-radius: 12px; overflow: hidden;
-  box-shadow: var(--sombra-card);
-  transition: border-color .3s;
-}
-.sidebar-card:hover { border-color: rgba(0,229,255,.3); }
-.sc-header {
-  background: rgba(1,8,21,.7);
-  padding: 10px 16px;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .68rem; letter-spacing: .2em; font-weight: 700;
-  color: var(--neon-cyan); text-transform: uppercase;
-  border-bottom: 1px solid rgba(0,229,255,.2);
-  display: flex; align-items: center; gap: 8px;
-  text-shadow: 0 0 10px rgba(0,229,255,.5);
-}
-.sc-body { padding: 16px; }
+/* ─── ADS SLIDER ─────────────────────────── */
+.ads-sec{margin-bottom:32px}
+.ads-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.ads-lbl::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.05)}
+.ads-wrap{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid rgba(26,111,255,.14)}
+.ads-track{display:flex;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.ad-sl{min-width:100%;height:108px;position:relative;overflow:hidden;cursor:pointer;flex-shrink:0}
+.ad-sl img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.ad-sl:hover img{transform:scale(1.04)}
+.ad-sl-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,15,.82) 0%,rgba(5,8,15,.25) 55%,transparent 100%);display:flex;align-items:center;padding:0 26px}
+.ad-sl-txt{font-family:'Barlow Condensed',sans-serif;font-size:1.12rem;font-weight:800;letter-spacing:.02em;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.8);max-width:250px}
+.ad-sl-tag{display:block;font-size:.57rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--spark);margin-bottom:3px}
+.ads-dots{display:flex;justify-content:center;gap:5px;padding:6px 0}
+.ads-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.17);cursor:pointer;transition:background .2s,transform .2s}
+.ads-dot.on{background:var(--electric);transform:scale(1.6)}
+.ads-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(5,8,15,.75);border:1px solid rgba(26,111,255,.28);color:#fff;width:29px;height:29px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;z-index:3;transition:background .2s}
+.ads-arr:hover{background:var(--electric)}
+.ads-arr.l{left:8px}.ads-arr.r{right:8px}
+@media(max-width:560px){.ad-sl{height:74px}}
 
-.channel-avatar {
-  width: 68px; height: 68px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--azul-vivo), var(--neon-glow));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.7rem; margin: 0 auto 12px;
-  border: 2px solid rgba(0,229,255,.5);
-  box-shadow: 0 0 24px rgba(0,229,255,.4), 0 0 50px rgba(0,229,255,.15);
-}
-.channel-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem; letter-spacing: .06em;
-  text-align: center; color: var(--blanco);
-  line-height: 1.1; margin-bottom: 4px;
-  text-shadow: 0 0 20px rgba(255,255,255,.3);
-}
-.channel-sub {
-  font-family: 'Rajdhani', sans-serif; font-weight: 600;
-  font-size: .72rem; color: var(--neon-cyan);
-  letter-spacing: .15em; text-transform: uppercase;
-  text-align: center; margin-bottom: 16px;
-  text-shadow: 0 0 10px rgba(0,229,255,.6);
-}
-.stats-row {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 8px; margin-bottom: 16px;
-}
-.stat-box {
-  background: rgba(0,0,0,.4);
-  border-radius: 8px; padding: 8px 4px; text-align: center;
-  border: 1px solid rgba(0,229,255,.1);
-  transition: border-color .2s, box-shadow .2s;
-}
-.stat-box:hover { border-color: rgba(0,229,255,.4); box-shadow: 0 0 12px rgba(0,229,255,.15); }
-.stat-n {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.35rem; color: var(--neon-cyan);
-  text-shadow: 0 0 12px rgba(0,229,255,.6);
-}
-.stat-l { font-size: .57rem; color: var(--gris-medio); text-transform: uppercase; letter-spacing: .08em; }
-.subscribe-btn {
-  display: block; width: 100%;
-  background: linear-gradient(90deg, #c62828, #b71c1c);
-  color: #fff; text-align: center; text-decoration: none;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .78rem; font-weight: 700; letter-spacing: .15em;
-  padding: 11px; border-radius: 7px;
-  transition: all .2s;
-  box-shadow: 0 4px 20px rgba(198,40,40,.35);
-}
-.subscribe-btn:hover { opacity: .9; box-shadow: 0 4px 28px rgba(198,40,40,.6); transform: translateY(-1px); }
+/* ─── SECTION BAR ─────────────────────────── */
+.sec-bar{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.055)}
+.sec-bar-acc{width:5px;height:30px;background:linear-gradient(180deg,var(--electric),var(--spark));border-radius:3px;box-shadow:0 0 12px rgba(26,111,255,.5)}
+.sec-bar-ttl{font-family:'Barlow Condensed',sans-serif;font-size:1.65rem;font-weight:900;letter-spacing:.04em;color:#fff}
+.sec-bar-cnt{font-family:'Barlow',sans-serif;font-size:.76rem;color:var(--dim);margin-left:auto;background:rgba(255,255,255,.045);padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.06)}
 
-.social-links { display: flex; flex-direction: column; gap: 8px; }
-.social-link {
-  display: flex; align-items: center; gap: 10px;
-  padding: 9px 12px; border-radius: 7px;
-  border: 1px solid rgba(0,229,255,.12);
-  text-decoration: none; color: var(--blanco);
-  font-family: 'Rajdhani', sans-serif; font-size: .78rem; font-weight: 600;
-  transition: all .2s;
-}
-.social-link:hover {
-  background: rgba(0,100,180,.2); border-color: rgba(0,229,255,.4);
-  box-shadow: 0 0 12px rgba(0,229,255,.15);
-  color: var(--neon-cyan);
-}
-.social-link .si { width: 22px; text-align: center; font-size: 1rem; }
+/* ─── VIDEO GRID ──────────────────────────── */
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}
+@media(max-width:1100px){.vgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.vgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.vgrid{grid-template-columns:1fr}}
 
-/* ═══════════════════════════════════════
-   SECCIÓN PODCASTS
-═══════════════════════════════════════ */
-.section-heading {
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 22px;
-}
-.sh-bar {
-  width: 4px; height: 30px;
-  background: linear-gradient(180deg, var(--neon-cyan), var(--azul-brillante));
-  border-radius: 2px;
-  box-shadow: 0 0 10px var(--neon-cyan);
-}
-.sh-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.7rem; letter-spacing: .07em; color: var(--blanco);
-  text-shadow: 0 2px 20px rgba(255,255,255,.15);
-}
-.sh-count {
-  font-family: 'Rajdhani', sans-serif; font-weight: 600;
-  font-size: .72rem; color: var(--gris-medio);
-  letter-spacing: .12em; margin-left: auto;
-}
+.vcard{background:var(--ink2);border:1px solid rgba(26,111,255,.13);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s;display:flex;flex-direction:column}
+.vcard:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.6),0 0 0 1px rgba(26,111,255,.38);border-color:rgba(26,111,255,.45)}
+.vcard-thumb{position:relative;padding-bottom:56.25%;background:var(--ink);overflow:hidden;flex-shrink:0}
+.vcard-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.vcard:hover .vcard-thumb img{transform:scale(1.07)}
+.vcard-ov{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .25s;display:flex;align-items:center;justify-content:center}
+.vcard:hover .vcard-ov{background:rgba(0,0,0,.35)}
+.vcard-play{width:48px;height:48px;border-radius:50%;background:rgba(26,111,255,.92);display:flex;align-items:center;justify-content:center;font-size:1.15rem;opacity:0;transform:scale(.65);transition:opacity .25s,transform .25s;box-shadow:0 0 28px rgba(26,111,255,.6)}
+.vcard:hover .vcard-play{opacity:1;transform:scale(1)}
+.vcard-badge{position:absolute;top:7px;left:7px;background:var(--electric);font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff;padding:2px 8px;border-radius:3px}
+.vcard-body{padding:11px 13px;flex:1;display:flex;flex-direction:column;gap:5px}
+.vcard-title{font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:700;letter-spacing:.02em;color:var(--off);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vcard-meta{font-family:'Barlow',sans-serif;font-size:.68rem;color:var(--dim);display:flex;align-items:center;gap:5px;margin-top:auto}
+.vcard-meta::before{content:"🗓";font-size:.63rem}
 
-/* Botones paginación */
-.pagination-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 12px; margin-top: 28px;
-}
-.pag-btn {
-  background: rgba(0,100,180,.2);
-  border: 1px solid rgba(0,229,255,.35);
-  color: var(--neon-cyan);
-  font-family: 'Rajdhani', sans-serif; font-weight: 700;
-  font-size: .78rem; letter-spacing: .12em;
-  padding: 9px 24px; border-radius: 6px; cursor: pointer;
-  transition: all .25s;
-  display: flex; align-items: center; gap: 8px;
-}
-.pag-btn:hover { background: var(--neon-glow); color: var(--negro); box-shadow: 0 0 18px rgba(0,229,255,.5); }
-.pag-btn:disabled { opacity: .3; cursor: not-allowed; }
-.pag-info {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: .75rem; color: var(--gris-medio); letter-spacing: .08em;
-}
+/* ─── BTN VER MÁS ─────────────────────────── */
+.lm-wrap{display:flex;justify-content:center;padding:8px 0}
+.btn-lm{background:transparent;border:1px solid rgba(26,111,255,.38);color:var(--off);font-family:'Barlow Condensed',sans-serif;font-size:.84rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:13px 44px;border-radius:5px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .2s,border-color .2s,color .2s,transform .15s;position:relative;overflow:hidden}
+.btn-lm::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(26,111,255,.1),transparent);transform:translateX(-100%);transition:transform .5s ease}
+.btn-lm:hover::before{transform:translateX(100%)}
+.btn-lm:hover{border-color:var(--electric);color:var(--spark);transform:translateY(-1px)}
+.btn-lm:disabled{opacity:.32;cursor:default;transform:none}
+.btn-lm .arr{transition:transform .2s}
+.btn-lm:hover .arr{transform:translateY(3px)}
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid rgba(26,111,255,.3);border-top-color:var(--electric);animation:spinA .6s linear infinite;display:inline-block}
+@keyframes spinA{to{transform:rotate(360deg)}}
 
-.videos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 18px;
-}
+/* ─── MODAL ──────────────────────────────── */
+.modal{position:fixed;inset:0;background:rgba(2,5,12,.93);backdrop-filter:blur(10px);z-index:500;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal.open{opacity:1;pointer-events:all}
+.modal-box{width:100%;max-width:920px;background:var(--ink2);border:1px solid rgba(26,111,255,.32);border-radius:10px;overflow:hidden;transform:scale(.93) translateY(20px);transition:transform .3s cubic-bezier(.34,1.3,.64,1);box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.modal.open .modal-box{transform:scale(1) translateY(0)}
+.modal-bar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--ink3);border-bottom:1px solid rgba(26,111,255,.18)}
+.modal-ttl{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;color:var(--off);max-width:85%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-cls{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-cls:hover{background:#c41e1e;border-color:#c41e1e}
+.modal-vid{position:relative;padding-bottom:56.25%;background:#000}
+.modal-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
 
-.video-card {
-  background: linear-gradient(135deg, rgba(7,19,51,.85) 0%, rgba(1,8,21,.9) 100%);
-  border: 1px solid rgba(0,229,255,.12);
-  border-radius: 11px; overflow: hidden; cursor: pointer;
-  transition: transform .25s, box-shadow .25s, border-color .25s;
-  box-shadow: 0 4px 20px rgba(0,0,0,.5);
-}
-.video-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 14px 50px rgba(0,0,0,.6), 0 0 20px rgba(0,229,255,.15);
-  border-color: rgba(0,229,255,.4);
-}
-.vc-thumb {
-  position: relative; padding-bottom: 56.25%;
-  background: var(--negro); overflow: hidden;
-}
-.vc-thumb img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform .35s, filter .35s;
-  filter: brightness(.9) saturate(1.05);
-}
-.video-card:hover .vc-thumb img { transform: scale(1.06); filter: brightness(1) saturate(1.15); }
-.vc-play {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,.4); opacity: 0; transition: opacity .2s;
-}
-.video-card:hover .vc-play { opacity: 1; }
-.vc-play-icon {
-  width: 50px; height: 50px; border-radius: 50%;
-  background: rgba(0,100,180,.85);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 0 25px rgba(0,229,255,.6);
-  border: 1px solid rgba(0,229,255,.5);
-}
-.vc-new {
-  position: absolute; top: 8px; left: 8px;
-  background: var(--neon-glow);
-  color: var(--negro); font-family: 'Rajdhani', sans-serif; font-weight: 700;
-  font-size: .6rem; letter-spacing: .12em;
-  padding: 2px 9px; border-radius: 3px;
-  box-shadow: 0 0 10px rgba(0,229,255,.5);
-}
-.vc-body { padding: 12px 14px; }
-.vc-title {
-  font-family: 'Rajdhani', sans-serif; font-weight: 600;
-  font-size: .88rem;
-  color: var(--blanco-hueso); line-height: 1.38; margin-bottom: 6px;
-  display: -webkit-box; -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-.vc-meta { font-size: .67rem; color: var(--gris-medio); display: flex; align-items: center; gap: 6px; }
-.vc-meta::before { content: "📅"; font-size: .7rem; }
+/* ─── FOOTER PLAYER ──────────────────────── */
+.pbar{position:fixed;bottom:0;left:0;right:0;height:var(--footer-h);background:rgba(5,8,15,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(26,111,255,.28);box-shadow:0 -8px 40px rgba(0,0,0,.6);z-index:300}
+.pbar::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 0%,var(--electric) 20%,var(--spark) 50%,var(--electric) 80%,transparent 100%)}
+.pwrap{max-width:1400px;margin:0 auto;height:100%;padding:0 20px;display:flex;align-items:center;gap:15px}
+.pdisc{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--cobalt) 0%,var(--electric) 100%);display:flex;align-items:center;justify-content:center;font-size:1.15rem;border:2px solid rgba(26,111,255,.38);box-shadow:0 0 18px rgba(26,111,255,.38);animation:discSpin 8s linear infinite}
+.pdisc.off{animation-play-state:paused}
+@keyframes discSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.pinfo{flex:1;min-width:0}
+.pinfo-tag{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--spark);display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.pinfo-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red2);animation:blink 1s infinite}
+.pinfo-name{font-family:'Barlow Condensed',sans-serif;font-size:.93rem;font-weight:700;color:var(--off);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.peq{display:flex;align-items:flex-end;gap:2px;height:22px;flex-shrink:0}
+.peq-b{width:3px;border-radius:2px;background:linear-gradient(180deg,var(--spark),var(--cobalt))}
+.peq-b:nth-child(1){animation:eq1 .7s ease-in-out infinite}
+.peq-b:nth-child(2){animation:eq2 .9s ease-in-out infinite .1s}
+.peq-b:nth-child(3){animation:eq3 .6s ease-in-out infinite .2s}
+.peq-b:nth-child(4){animation:eq2 .8s ease-in-out infinite .05s}
+.peq-b:nth-child(5){animation:eq1 .75s ease-in-out infinite .15s}
+@keyframes eq1{0%,100%{height:4px}50%{height:20px}}
+@keyframes eq2{0%,100%{height:10px}50%{height:22px}}
+@keyframes eq3{0%,100%{height:14px}50%{height:6px}}
+.peq.off .peq-b{height:3px!important;animation:none!important}
+.pctrl{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.pbtn{background:rgba(26,111,255,.14);border:1px solid rgba(26,111,255,.34);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:5px;cursor:pointer;transition:background .2s,box-shadow .2s;white-space:nowrap}
+.pbtn:hover{background:var(--electric);box-shadow:0 0 14px rgba(26,111,255,.4)}
+.pbtn.on{background:var(--red);border-color:var(--red2);box-shadow:0 0 14px rgba(220,38,38,.4)}
+.pvol{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.pvol span{font-size:.88rem;color:var(--mist)}
+.pvol input[type=range]{-webkit-appearance:none;width:78px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;cursor:pointer;outline:none}
+.pvol input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--spark);box-shadow:0 0 6px rgba(0,170,255,.6)}
+.pcopy{font-family:'Barlow',sans-serif;font-size:.6rem;color:var(--dim);text-align:right;flex-shrink:0;line-height:1.55}
+.pcopy strong{color:var(--ice);display:block}
+#stream-audio{display:none}
+@media(max-width:700px){.pcopy,.pvol{display:none}}
+@media(max-width:480px){.pinfo,.peq{display:none}}
 
-/* ═══════════════════════════════════════
-   MODAL
-═══════════════════════════════════════ */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(1,8,21,.93);
-  backdrop-filter: blur(10px);
-  z-index: 900;
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none; transition: opacity .3s;
-}
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal-box {
-  width: 100%; max-width: 900px;
-  background: var(--negro);
-  border: 1px solid rgba(0,229,255,.35);
-  border-radius: 14px; overflow: hidden;
-  transform: scale(.93); transition: transform .3s;
-  box-shadow: 0 20px 80px rgba(0,0,0,.8), 0 0 40px rgba(0,229,255,.15);
-}
-.modal-overlay.open .modal-box { transform: scale(1); }
-.modal-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 18px;
-  background: linear-gradient(90deg, var(--negro), var(--azul-medio));
-  border-bottom: 1px solid rgba(0,229,255,.2);
-}
-.modal-title {
-  font-family: 'Rajdhani', sans-serif; font-weight: 600;
-  font-size: .88rem; color: var(--blanco);
-  max-width: 82%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.modal-close {
-  background: rgba(255,255,255,.08); border: 1px solid rgba(0,229,255,.2);
-  color: var(--blanco); width: 28px; height: 28px;
-  border-radius: 50%; cursor: pointer; font-size: .9rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .2s;
-}
-.modal-close:hover { background: #c62828; border-color: transparent; }
-.modal-video { position: relative; padding-bottom: 56.25%; background: #000; }
-.modal-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+/* ─── WHATSAPP ────────────────────────────── */
+.wa{position:fixed;bottom:calc(var(--footer-h) + 14px);right:17px;z-index:400;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.wa-tip{background:var(--ink3);border:1px solid rgba(26,111,255,.24);color:var(--off);font-family:'Barlow',sans-serif;font-size:.7rem;padding:5px 12px;border-radius:5px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateX(8px);transition:opacity .25s,transform .25s;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.wa:hover .wa-tip{opacity:1;transform:translateX(0);pointer-events:auto}
+.wa-btn{width:52px;height:52px;border-radius:50%;background:#25d366;text-decoration:none;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(37,211,102,.5);transition:transform .25s,box-shadow .25s;animation:waFl 3s ease-in-out infinite;position:relative}
+.wa-btn::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,.28);animation:waRing 3s ease-in-out infinite}
+@keyframes waFl{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes waRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+.wa-btn:hover{transform:scale(1.1) translateY(-2px)!important;box-shadow:0 6px 30px rgba(37,211,102,.7)}
+.wa-btn svg{width:27px;height:27px;fill:#fff}
 
-/* ═══════════════════════════════════════
-   BURBUJA WHATSAPP
-═══════════════════════════════════════ */
-.wa-bubble {
-  position: fixed; bottom: 100px; right: 24px;
-  z-index: 600;
-  display: flex; align-items: center; gap: 12px;
-  text-decoration: none;
-}
-.wa-bubble .wa-label {
-  background: linear-gradient(135deg, rgba(1,8,21,.95), rgba(7,19,51,.9));
-  border: 1px solid rgba(0,229,255,.25);
-  color: var(--blanco-hueso);
-  font-family: 'Rajdhani', sans-serif; font-weight: 600;
-  font-size: .75rem; letter-spacing: .06em;
-  padding: 7px 14px; border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.5);
-  white-space: nowrap;
-  opacity: 0; transform: translateX(10px);
-  transition: opacity .3s, transform .3s;
-  pointer-events: none;
-}
-.wa-bubble:hover .wa-label { opacity: 1; transform: translateX(0); }
-.wa-circle {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: linear-gradient(135deg, #25d366, #128c7e);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,.45), 0 0 30px rgba(37,211,102,.2);
-  transition: transform .2s, box-shadow .2s;
-  flex-shrink: 0;
-}
-.wa-bubble:hover .wa-circle {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(37,211,102,.65), 0 0 50px rgba(37,211,102,.3);
-}
-.wa-circle svg { width: 26px; height: 26px; fill: white; }
-.wa-ping {
-  position: absolute; top: -3px; right: -3px;
-  width: 14px; height: 14px; border-radius: 50%;
-  background: var(--neon-cyan);
-  box-shadow: 0 0 10px var(--neon-cyan);
-  animation: wa-ping 2s ease-in-out infinite;
-}
-@keyframes wa-ping {
-  0%,100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: .6; }
-}
+50%{box-shadow:0 0 0 22px rgba(26,111,255,0);transform:scale(1.05)}}
 
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
-footer {
-  background: var(--negro);
-  border-top: 1px solid rgba(0,229,255,.2);
-  padding: 18px 20px;
-  text-align: center;
-  font-family: 'Rajdhani', sans-serif; font-weight: 500;
-  font-size: .72rem; letter-spacing: .12em;
-  color: var(--gris-medio);
-  margin-bottom: 0;
-}
-footer span { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0,229,255,.5); }
-
-/* ANIMACIONES ENTRADA */
-.fade-in { animation: fade-up .5s ease both; }
-@keyframes fade-up {
-  from { opacity:0; transform:translateY(18px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-
-/* NEON LINE DIVIDER */
-.neon-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,229,255,.4), rgba(0,229,255,.1), transparent);
-  margin: 32px 0;
-  box-shadow: 0 0 8px rgba(0,229,255,.2);
-}
+.fade-up{animation:fuA .5s ease both}
+@keyframes fuA{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
 
+<audio id="stream-audio" preload="none"></audio>
+
 <!-- TICKER -->
-<div class="ticker-bar">
-  <div class="ticker-label">EN VIVO</div>
-  <div class="ticker-track" id="ticker">
-    <span>Cuarto Poder Radio transmite en vivo todos los días</span>
-    <span>Henry Forero — Periodismo sin censura</span>
-    <span>Síguenos en YouTube: @henryforero7257</span>
-    <span>Información veraz y oportuna para Colombia</span>
-    <span>Podcasts disponibles todos los días a las 12:00 pm</span>
-    <span>Cuarto Poder Radio transmite en vivo todos los días</span>
-    <span>Henry Forero — Periodismo sin censura</span>
-    <span>Síguenos en YouTube: @henryforero7257</span>
-    <span>Información veraz y oportuna para Colombia</span>
-    <span>Podcasts disponibles todos los días a las 12:00 pm</span>
+<div class="ticker">
+  <div class="ticker__lbl"><span>●</span>ÚLTIMAS NOTICIAS</div>
+  <div class="ticker__track">
+    <i>Cuarto Poder Radio transmite en vivo todos los días</i>
+    <i>Henry Forero — Periodismo sin censura desde Colombia</i>
+    <i>Síguenos en YouTube @henryforero7257</i>
+    <i>Información veraz y oportuna para todos los colombianos</i>
+    <i>Podcasts disponibles todos los días a las 12:00 pm</i>
+    <i>La verdad siempre por delante — Cuarto Poder Radio</i>
+    <i>Cuarto Poder Radio transmite en vivo todos los días</i>
+    <i>Henry Forero — Periodismo sin censura desde Colombia</i>
+    <i>Síguenos en YouTube @henryforero7257</i>
+    <i>Información veraz y oportuna para todos los colombianos</i>
+    <i>Podcasts disponibles todos los días a las 12:00 pm</i>
+    <i>La verdad siempre por delante — Cuarto Poder Radio</i>
   </div>
 </div>
 
 <!-- BANNER -->
-<div class="banner-header">
-  <img class="banner-img" src="https://raw.githubusercontent.com/conectadosturadio/BANWER-4TO-PODER-RAdio/refs/heads/main/baner-4to-poder-raDIO.png" alt="Cuarto Poder Radio - Henry Forero">
+<div class="banner">
+  <img
+    id="bimg"
+    src="https://raw.githubusercontent.com/conectadosturadio/BANWER-4TO-PODER-RAdio/refs/heads/main/baner-4to-poder-raDIO.png"
+    alt="Cuarto Poder Radio — Henry Forero"
+    onerror="this.style.display='none';document.getElementById('bfb').style.display='flex'"
+  >
+  <div class="banner-fb" id="bfb" style="display:none">
+    <div class="logo">CUARTO<br><em>PODER</em></div>
+    <div class="div"></div>
+    <div class="sub"><strong>Henry Forero</strong>Periodismo Independiente · Colombia · 24/7</div>
+  </div>
 </div>
 
 <!-- NAV -->
-<nav class="main-nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-brand"><div class="dot"></div>CUARTO PODER</a>
+<nav class="nav">
+  <div class="nav-w">
+    <a href="#" class="nav-brand"><div class="pdot"></div>CUARTO PODER RADIO</a>
     <div class="nav-links">
-      <a href="#en-vivo" class="active">En Vivo</a>
+      <a href="#envivo" class="on">En Vivo</a>
       <a href="#podcast">Podcast</a>
-      <a href="/cdn-cgi/l/email-protection#f2919d9c869391869db29a979c808b949d8097809ddc919d9f">Contacto</a>
+      <a href="#publicidad">Patrocinadores</a>
+      <a href="mailto:contacto@henryforero.com">Contacto</a>
     </div>
-    <div class="nav-clock" id="clock">--:-- --</div>
+    <div class="nav-r">
+      <div class="nav-clock" id="nclock">--:--:-- --</div>
+      <div class="live-pill">EN VIVO</div>
+    </div>
   </div>
 </nav>
 
-<!-- CONTENIDO -->
-<div class="page-wrapper">
+<!-- PÁGINA -->
+<main class="page">
 
-  <!-- SLIDER PUBLICIDAD — 10 slides -->
-  <div class="ads-slider-section fade-in">
-    <div class="ads-slider-title">Patrocinadores</div>
-    <div class="ads-slider-wrap">
-      <div class="ads-track" id="ads-track">
-
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1280&q=80" alt="Publicidad 1">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Publicidad</div>Tu marca aquí<br>llega a miles</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1280&q=80" alt="Publicidad 2">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Pauta con nosotros</div>Audiencia local<br>y nacional</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1280&q=80" alt="Publicidad 3">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Espacio disponible</div>Contacta a<br>Cuarto Poder Radio</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1280&q=80" alt="Publicidad 4">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Anúnciate</div>Medios digitales<br>al alcance de todos</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1280&q=80" alt="Publicidad 5">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Sponsor</div>Noticias en tiempo<br>real para Colombia</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=1280&q=80" alt="Publicidad 6">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Pauta aquí</div>Tu negocio crece<br>con nosotros</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1280&q=80" alt="Publicidad 7">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Publicidad Digital</div>Impacto directo<br>en tu audiencia</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1280&q=80" alt="Publicidad 8">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Únete</div>Periodismo<br>con propósito</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1280&q=80" alt="Publicidad 9">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Espacio Premium</div>Visibilidad real<br>para tu marca</div></div>
-        </div>
-        <div class="ad-slide">
-          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1280&q=80" alt="Publicidad 10">
-          <div class="ad-overlay"><div class="ad-text"><div class="ad-tag">Contacto</div>Escríbenos hoy<br>y pauta con nosotros</div></div>
-        </div>
-
+  <!-- HERO -->
+  <section class="hero fade-up" id="envivo">
+    <div class="live-wrap">
+      <div class="live-head">
+        <div class="live-tag">EN VIVO</div>
+        <div class="live-ttl">Henry Forero · Cuarto Poder Radio</div>
       </div>
-      <button class="ads-arrow left" id="ads-prev">‹</button>
-      <button class="ads-arrow right" id="ads-next">›</button>
-      <div class="ads-dots" id="ads-dots"></div>
-    </div>
-  </div>
-
-  <!-- GRID PRINCIPAL -->
-  <div class="main-grid" id="en-vivo">
-
-    <div class="main-video-wrap fade-in">
-      <div class="video-header">
-        <div class="live-badge"><div class="live-dot"></div> EN VIVO</div>
-        <div class="video-title-bar">Henry Forero · Cuarto Poder Radio</div>
-      </div>
-      <div class="video-embed">
-        <iframe id="live-frame"
-          src="https://www.youtube.com/embed/live_stream?channel=UCubPnuTolaj0cJv0SK67rcw&autoplay=1&rel=0&modestbranding=1"
+      <div class="live-embed">
+        <iframe
+          src="https://www.youtube.com/embed/live_stream?channel=UCubPnuTolaj0cJv0SK67rcw&autoplay=0&rel=0&modestbranding=1"
           allowfullscreen allow="autoplay; encrypted-media">
         </iframe>
       </div>
     </div>
 
     <aside class="sidebar">
-      <div class="sidebar-card fade-in">
-        <div class="sc-header">📡 Canal</div>
-        <div class="sc-body">
-          <div class="channel-avatar">🎙</div>
-          <div class="channel-name">Henry Forero</div>
-          <div class="channel-sub">Cuarto Poder Radio</div>
-          <div class="stats-row">
-            <div class="stat-box"><div class="stat-n">154</div><div class="stat-l">Suscriptores</div></div>
-            <div class="stat-box"><div class="stat-n" id="video-count">—</div><div class="stat-l">Videos</div></div>
-            <div class="stat-box"><div class="stat-n">Diario</div><div class="stat-l">Emisión</div></div>
+      <div class="card fade-up" style="animation-delay:.1s">
+        <div class="card-head">📡 Canal</div>
+        <div class="card-body">
+          <div class="ch-av">🎙</div>
+          <div class="ch-name">Henry Forero</div>
+          <div class="ch-handle">@henryforero7257 · Cuarto Poder Radio</div>
+          <div class="ch-stats">
+            <div class="ch-stat"><div class="ch-stat-n">154</div><div class="ch-stat-l">Seguidores</div></div>
+            <div class="ch-stat"><div class="ch-stat-n" id="vcnt">—</div><div class="ch-stat-l">Videos</div></div>
+            <div class="ch-stat"><div class="ch-stat-n">Diario</div><div class="ch-stat-l">Transmisión</div></div>
           </div>
-          <a class="subscribe-btn" href="https://www.youtube.com/@henryforero7257?sub_confirmation=1" target="_blank" rel="noopener">▶ Suscríbete al canal</a>
+          <a class="btn-sub" href="https://www.youtube.com/@henryforero7257?sub_confirmation=1" target="_blank" rel="noopener">▶ &nbsp;Suscribirse al Canal</a>
         </div>
       </div>
-      <div class="sidebar-card fade-in">
-        <div class="sc-header">🔗 Redes Sociales</div>
-        <div class="sc-body">
-          <div class="social-links">
-            <a class="social-link" href="https://www.youtube.com/@henryforero7257" target="_blank" rel="noopener"><span class="si">▶</span> YouTube</a>
-            <a class="social-link" href="#" target="_blank" rel="noopener"><span class="si">f</span> Facebook</a>
-            <a class="social-link" href="#" target="_blank" rel="noopener"><span class="si">𝕏</span> Twitter / X</a>
-            <a class="social-link" href="https://wa.me/57000000000" target="_blank" rel="noopener"><span class="si">💬</span> WhatsApp</a>
+      <div class="card fade-up" style="animation-delay:.17s">
+        <div class="card-head">🔗 Redes Sociales</div>
+        <div class="card-body">
+          <div class="soc-list">
+            <a class="soc-item" href="https://www.youtube.com/@henryforero7257" target="_blank" rel="noopener"><span class="soc-icon">▶</span>YouTube<span class="soc-arr">›</span></a>
+            <a class="soc-item" href="#" target="_blank" rel="noopener"><span class="soc-icon">f</span>Facebook<span class="soc-arr">›</span></a>
+            <a class="soc-item" href="#" target="_blank" rel="noopener"><span class="soc-icon">𝕏</span>Twitter / X<span class="soc-arr">›</span></a>
+            <a class="soc-item" href="https://wa.me/57000000000" target="_blank" rel="noopener"><span class="soc-icon">💬</span>WhatsApp<span class="soc-arr">›</span></a>
           </div>
         </div>
       </div>
     </aside>
-  </div>
+  </section>
 
-  <div class="neon-divider"></div>
+  <!-- ADS SLIDER -->
+  <section class="ads-sec fade-up" id="publicidad" style="animation-delay:.22s">
+    <div class="ads-lbl">Patrocinadores &amp; Publicidad</div>
+    <div class="ads-wrap">
+      <div class="ads-track" id="adsTrk">
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Espacio Publicitario</span>Tu marca llega a miles de oyentes</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Pauta con nosotros</span>Audiencia local y nacional</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Disponible</span>Contáctanos hoy y anuncia aquí</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Medios Digitales</span>Soluciones para tu empresa</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Tecnología</span>Innovación al servicio de Colombia</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Noticias</span>La mejor información del país</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Innovación</span>Líderes del sector digital</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Comunidad</span>Juntos construimos Colombia</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Servicios</span>Los mejores del mercado</div></div></div>
+        <div class="ad-sl"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1400&q=75" alt="" loading="lazy"><div class="ad-sl-ov"><div class="ad-sl-txt"><span class="ad-sl-tag">Tu anuncio aquí</span>Reserva tu espacio ahora</div></div></div>
+      </div>
+      <button class="ads-arr l" id="adsP">‹</button>
+      <button class="ads-arr r" id="adsN">›</button>
+    </div>
+    <div class="ads-dots" id="adsDots"></div>
+  </section>
 
-  <!-- PODCASTS -->
-  <div id="podcast">
-    <div class="section-heading">
-      <div class="sh-bar"></div>
-      <div class="sh-title">Podcast — Últimas Emisiones</div>
-      <div class="sh-count" id="videos-count"></div>
+  <!-- VIDEOS -->
+  <section id="podcast">
+    <div class="sec-bar">
+      <div class="sec-bar-acc"></div>
+      <div class="sec-bar-ttl">Podcast — Últimas Emisiones</div>
+      <div class="sec-bar-cnt" id="epcnt">Cargando…</div>
     </div>
-    <div class="videos-grid" id="videos-grid">
-      <div class="video-card" style="opacity:.25;height:200px" id="skel1"></div>
-      <div class="video-card" style="opacity:.25;height:200px" id="skel2"></div>
-      <div class="video-card" style="opacity:.25;height:200px" id="skel3"></div>
-      <div class="video-card" style="opacity:.25;height:200px" id="skel4"></div>
-      <div class="video-card" style="opacity:.25;height:200px" id="skel5"></div>
+    <div class="vgrid" id="vgrid">
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk1"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk2"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk3"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk4"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk5"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk6"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk7"></div>
+      <div class="vcard" style="opacity:.14;min-height:190px" id="sk8"></div>
     </div>
-    <div class="pagination-row" id="pagination-row" style="display:none">
-      <button class="pag-btn" id="pag-prev" disabled>‹ Anterior</button>
-      <span class="pag-info" id="pag-info"></span>
-      <button class="pag-btn" id="pag-next">Siguiente ›</button>
+    <div class="lm-wrap" id="lmWrap" style="display:none">
+      <button class="btn-lm" id="lmBtn">
+        <span id="lmTxt">Ver más episodios</span>
+        <span class="arr">↓</span>
+      </button>
     </div>
-  </div>
+  </section>
 
-</div>
+</main>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal">
+<div class="modal" id="modal">
   <div class="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Video</div>
-      <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-bar">
+      <div class="modal-ttl" id="mttl">Video</div>
+      <button class="modal-cls" id="mcls">✕</button>
     </div>
-    <div class="modal-video">
-      <iframe id="modal-frame" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    <div class="modal-vid">
+      <iframe id="mfrm" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <span>CUARTO PODER RADIO</span> · Henry Forero · Todos los derechos reservados © 2026
+<!-- FOOTER PLAYER -->
+<footer class="pbar">
+  <div class="pwrap">
+    <div class="pdisc off" id="pdisc">🎙</div>
+    <div class="pinfo">
+      <div class="pinfo-tag">Streaming en vivo</div>
+      <div class="pinfo-name" id="pname">Cuarto Poder Radio — 24 horas</div>
+    </div>
+    <div class="peq off" id="peq">
+      <div class="peq-b"></div><div class="peq-b"></div><div class="peq-b"></div>
+      <div class="peq-b"></div><div class="peq-b"></div>
+    </div>
+    <div class="pctrl">
+      <button class="pbtn" id="pbtn">▶ Reproducir</button>
+    </div>
+    <div class="pvol">
+      <span>🔊</span>
+      <input type="range" id="pvol" min="0" max="1" step="0.05" value="0.85">
+    </div>
+    <div class="pcopy"><strong>CUARTO PODER RADIO</strong>© 2026 Henry Forero</div>
+  </div>
 </footer>
 
-<!-- BURBUJA WHATSAPP -->
-<a class="wa-bubble" href="https://wa.me/57000000000" target="_blank" rel="noopener" title="Contáctanos por WhatsApp">
-  <span class="wa-label">¡Escríbenos!</span>
-  <div class="wa-circle" style="position:relative">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    <div class="wa-ping"></div>
-  </div>
-</a>
-
-<!-- REPRODUCTOR STREAMING PIE FIJO -->
-<div class="footer-player">
-  <div class="footer-player-inner">
-    <div class="fp-icon" id="fp-disc">🎙️</div>
-    <div class="fp-info">
-      <div class="fp-label">▶ Streaming en vivo · Cuarto Poder Radio</div>
-      <div class="fp-station" id="fp-station">Cuarto Poder Radio — En Vivo</div>
-    </div>
-    <div class="fp-spectrum" id="fp-spectrum">
-      <div class="fp-bar-v" style="height:14px"></div>
-      <div class="fp-bar-v" style="height:8px"></div>
-      <div class="fp-bar-v" style="height:20px"></div>
-      <div class="fp-bar-v" style="height:10px"></div>
-      <div class="fp-bar-v" style="height:16px"></div>
-    </div>
-    <div class="fp-vol">
-      <span class="fp-vol-icon">🔊</span>
-      <input type="range" id="fp-volume" min="0" max="1" step="0.05" value="0.8">
-    </div>
-    <div class="fp-controls">
-      <button class="fp-btn live" id="fp-live-btn">● EN VIVO</button>
-      <button class="fp-btn" id="fp-play-btn">▶ Play</button>
-    </div>
-    <div class="fp-progress"><div class="fp-bar" id="fp-bar"></div></div>
-    <audio id="stream-audio" preload="none">
-      <source src="https://streaming.radiosenlinea.com.ar/8224/stream" type="audio/mpeg">
-    </audio>
-  </div>
+<!-- WHATSAPP -->
+<div class="wa">
+  <div class="wa-tip">💬 Escríbenos por WhatsApp</div>
+  <a class="wa-btn" href="https://wa.me/57000000000" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 </div>
 
-<!-- ══════════════════ JS ══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ─── RELOJ ───────────────────────────────
-const clock = document.getElementById('clock');
-function updateClock() {
-  const now = new Date();
-  let h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-  const am = h >= 12 ? 'PM' : 'AM';
-  h = h % 12 || 12;
-  clock.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${am}`;
+<script>
+/* RELOJ */
+const clk = document.getElementById('nclock');
+(function t(){const n=new Date();let h=n.getHours(),m=n.getMinutes(),s=n.getSeconds();const ap=h>=12?'PM':'AM';h=h%12||12;clk.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+' '+ap;setTimeout(t,1000)})();
+
+/* ADS SLIDER */
+const atrk=document.getElementById('adsTrk'),adts=document.getElementById('adsDots'),asls=atrk.querySelectorAll('.ad-sl');
+let ai=0,at;
+asls.forEach((_,i)=>{const d=document.createElement('div');d.className='ads-dot'+(i===0?' on':'');d.onclick=()=>{ga(i);rst()};adts.appendChild(d)});
+function ga(n){ai=((n%asls.length)+asls.length)%asls.length;atrk.style.transform=`translateX(-${ai*100}%)`;adts.querySelectorAll('.ads-dot').forEach((d,i)=>d.classList.toggle('on',i===ai))}
+function rst(){clearInterval(at);at=setInterval(()=>ga(ai+1),5000)}
+document.getElementById('adsP').onclick=()=>{ga(ai-1);rst()};
+document.getElementById('adsN').onclick=()=>{ga(ai+1);rst()};
+rst();
+
+/* STREAMING */
+const aud=document.getElementById('stream-audio');
+const pdisc=document.getElementById('pdisc'),peq=document.getElementById('peq');
+const pbtn=document.getElementById('pbtn'),pname=document.getElementById('pname');
+const pvol=document.getElementById('pvol');
+const SURL='https://streaming.radiosenlinea.com.ar/8224/stream';
+let isOn=false;
+aud.volume=0.85;
+
+function startStr(){
+  aud.src=SURL;aud.load();
+  aud.play().then(()=>{
+    isOn=true;pdisc.classList.remove('off');peq.classList.remove('off');
+    pbtn.textContent='⏹ Detener';pbtn.classList.add('on');
+    pname.textContent='Cuarto Poder Radio — En vivo ahora';
+  }).catch(()=>{});
 }
-setInterval(updateClock, 1000); updateClock();
+function stopStr(){
+  aud.pause();aud.src='';isOn=false;
+  pdisc.classList.add('off');peq.classList.add('off');
+  pbtn.textContent='▶ Reproducir';pbtn.classList.remove('on');
+  pname.textContent='Cuarto Poder Radio — 24 horas';
+}
+pbtn.onclick=()=>isOn?stopStr():startStr();
+pvol.oninput=()=>{aud.volume=parseFloat(pvol.value)};
 
-// ─── STREAMING PLAYER ────────────────────
-const streamAudio  = document.getElementById('stream-audio');
-const fpPlayBtn    = document.getElementById('fp-play-btn');
-const fpDisc       = document.getElementById('fp-disc');
-const fpSpectrum   = document.getElementById('fp-spectrum');
-const fpBar        = document.getElementById('fp-bar');
-const fpVolume     = document.getElementById('fp-volume');
-let isPlaying = false;
-let progressTimer;
 
-function startStream() {
-  streamAudio.volume = parseFloat(fpVolume.value);
-  streamAudio.load();
-  streamAudio.play().then(() => {
-    isPlaying = true;
-    fpPlayBtn.textContent = '⏸ Pausar';
-    fpPlayBtn.style.background = 'rgba(0,100,180,.35)';
-    fpPlayBtn.style.borderColor = 'rgba(0,229,255,.6)';
-    fpDisc.style.animationPlayState = 'running';
-    fpSpectrum.classList.remove('paused');
-    startProgressAnim();
-  }).catch(e => {
-    console.warn('Autoplay bloqueado, esperando interacción:', e);
-    fpPlayBtn.textContent = '▶ Play';
-  });
+window.addEventListener('load',()=>setTimeout(()=>{
+  aud.src=SURL;aud.load();
+  aud.play().then(()=>{
+    isOn=true;pdisc.classList.remove('off');peq.classList.remove('off');
+    pbtn.textContent='⏹ Detener';pbtn.classList.add('on');
+    pname.textContent='Cuarto Poder Radio — En vivo ahora';
+  }).catch(()=>{});
+},900));
+
+/* MODAL */
+const modal=document.getElementById('modal'),mttl=document.getElementById('mttl'),mfrm=document.getElementById('mfrm');
+function openM(vid,ttl){mttl.textContent=ttl;mfrm.src=`https://www.youtube.com/embed/${vid}?autoplay=1&rel=0&modestbranding=1`;modal.classList.add('open')}
+function closeM(){modal.classList.remove('open');mfrm.src=''}
+document.getElementById('mcls').onclick=closeM;
+modal.onclick=e=>{if(e.target===modal)closeM()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+/* VIDEOS */
+const BATCH=20;
+let all=[],shown=0;
+const grid=document.getElementById('vgrid');
+const epcnt=document.getElementById('epcnt');
+const lmWrap=document.getElementById('lmWrap');
+const lmBtn=document.getElementById('lmBtn');
+const lmTxt=document.getElementById('lmTxt');
+
+function clearSk(){['sk1','sk2','sk3','sk4','sk5','sk6','sk7','sk8'].forEach(id=>{const e=document.getElementById(id);if(e)e.remove()})}
+
+function mkCard(v,i){
+  const vid=v.id.videoId||v.id,ttl=v.snippet.title;
+  const ds=new Date(v.snippet.publishedAt).toLocaleDateString('es-CO',{day:'numeric',month:'long',year:'numeric'});
+  const th=`https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
+  const c=document.createElement('div');
+  c.className='vcard fade-up';c.style.animationDelay=`${(i%BATCH)*.04}s`;
+  c.innerHTML=`<div class="vcard-thumb"><img src="${th}" alt="${ttl}" loading="lazy"><div class="vcard-ov"><div class="vcard-play">▶</div></div>${i<3?'<div class="vcard-badge">NUEVO</div>':''}</div><div class="vcard-body"><div class="vcard-title">${ttl}</div><div class="vcard-meta">${ds}</div></div>`;
+  c.onclick=()=>openM(vid,ttl);
+  return c;
 }
 
-function stopStream() {
-  streamAudio.pause();
-  isPlaying = false;
-  fpPlayBtn.textContent = '▶ Play';
-  fpPlayBtn.style.background = '';
-  fpPlayBtn.style.borderColor = '';
-  fpDisc.style.animationPlayState = 'paused';
-  fpSpectrum.classList.add('paused');
-  clearInterval(progressTimer);
+function showBatch(){
+  const end=Math.min(shown+BATCH,all.length);
+  for(let i=shown;i<end;i++)grid.appendChild(mkCard(all[i],i));
+  shown=end;
+  epcnt.textContent=`${shown} de ${all.length} episodios`;
+  document.getElementById('vcnt').textContent=all.length;
+  if(shown>=all.length){lmWrap.style.display='none'}
+  else{lmWrap.style.display='flex';lmTxt.textContent=`Ver más episodios (${all.length-shown} restantes)`;lmBtn.disabled=false;lmBtn.querySelector('.arr').textContent='↓'}
 }
 
-function startProgressAnim() {
-  clearInterval(progressTimer);
-  let p = 0;
-  progressTimer = setInterval(() => {
-    p = (p + .5) % 100;
-    fpBar.style.width = p + '%';
-  }, 300);
+function initV(vids){
+  clearSk();all=vids;shown=0;grid.innerHTML='';showBatch();
 }
 
-fpPlayBtn.onclick = () => { if(isPlaying) stopStream(); else startStream(); };
-fpVolume.oninput  = () => { streamAudio.volume = parseFloat(fpVolume.value); };
-document.getElementById('fp-live-btn').onclick = () => {
-  stopStream(); setTimeout(startStream, 200);
+lmBtn.onclick=()=>{
+  lmBtn.disabled=true;
+  lmTxt.innerHTML='<span style="display:inline-flex;align-items:center;gap:8px"><span class="spin"></span>Cargando…</span>';
+  setTimeout(()=>showBatch(),350);
 };
 
-// Autoplay al cargar
-window.addEventListener('load', () => {
-  setTimeout(startStream, 1200);
-});
+/* DATOS */
+const S=[
+  {id:{videoId:'djt6KCpybmM'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 4 MARZO DE 2026',publishedAt:'2026-03-04T12:00:00Z'}},
+  {id:{videoId:'DwHi-R-0R1o'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 3 DE MARZO DE 2026',publishedAt:'2026-03-03T12:00:00Z'}},
+  {id:{videoId:'MxrtagqBbK0'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 2 DE MARZO DE 2026',publishedAt:'2026-03-02T12:00:00Z'}},
+  {id:{videoId:'-SRcX4uM6ps'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 26 DE FEBRERO DE 2026',publishedAt:'2026-02-28T12:00:00Z'}},
+  {id:{videoId:'sghnEI8fG8Q'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 26 FEBRERO DE 2026',publishedAt:'2026-02-27T12:00:00Z'}},
+  {id:{videoId:'afr5qH5G1Gc'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO 25 DE FEBRERO DE 2026',publishedAt:'2026-02-26T12:00:00Z'}},
+  {id:{videoId:'WWw1IjKtyAA'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO 24 FEBRERO DE 2026',publishedAt:'2026-02-25T12:00:00Z'}},
+  {id:{videoId:'zAIF2HUAxoo'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO 23 DE FEBRERO DE 2026',publishedAt:'2026-02-24T12:00:00Z'}},
+  {id:{videoId:'KddrQ494iyc'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 20 FEBRERO DE 2026',publishedAt:'2026-02-21T12:00:00Z'}},
+  {id:{videoId:'HgST9iUaLg0'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 19 DE FEBRERO DE 2026',publishedAt:'2026-02-20T12:00:00Z'}},
+  {id:{videoId:'KeQ6ZaF7b2Q'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO 18 DE FEBRERO DE 2026',publishedAt:'2026-02-19T12:00:00Z'}},
+  {id:{videoId:'bShX65H-3Ak'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 13 DE FEBRERO DE 2026',publishedAt:'2026-02-14T12:00:00Z'}},
+  {id:{videoId:'Dhpp0mc6Ims'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO 12 FEBRERO 2026',publishedAt:'2026-02-13T12:00:00Z'}},
+  {id:{videoId:'ONislLgguOw'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 11 FEBRERO DE 2026',publishedAt:'2026-02-12T12:00:00Z'}},
+  {id:{videoId:'LY_ZE1YFDJE'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 10 FEBRERO DE 2026',publishedAt:'2026-02-11T12:00:00Z'}},
+  {id:{videoId:'xlq-bttyLYI'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 9 DE FEBRERO DE 2026',publishedAt:'2026-02-10T12:00:00Z'}},
+  {id:{videoId:'H0H_WWuH48c'},snippet:{title:'#alaire CUARTO PODER RADIO 19 ENERO DE 2026',publishedAt:'2026-01-19T12:00:00Z'}},
+  {id:{videoId:'mFIIDDR8QSc'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 15 ENERO DE 2026',publishedAt:'2026-01-15T12:00:00Z'}},
+  {id:{videoId:'1Nd1P1jNBYw'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 9 ENERO DE 2026',publishedAt:'2026-01-09T12:00:00Z'}},
+  {id:{videoId:'Hs4CMXn4sC4'},snippet:{title:'#alaire HENRY FORERO EN CUARTO PODER RADIO - 29 ENERO DE 2026',publishedAt:'2026-01-29T12:00:00Z'}},
+];
 
-// ─── ADS SLIDER ──────────────────────────
-const adsTrack = document.getElementById('ads-track');
-const adsDots  = document.getElementById('ads-dots');
-const slides   = adsTrack.querySelectorAll('.ad-slide');
-let adIdx = 0, adTimer;
-
-function buildDots() {
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'ads-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goAd(i);
-    adsDots.appendChild(d);
-  });
-}
-function goAd(n) {
-  adIdx = (n + slides.length) % slides.length;
-  adsTrack.style.transform = `translateX(-${adIdx * 100}%)`;
-  adsDots.querySelectorAll('.ads-dot').forEach((d,i) => d.classList.toggle('active', i === adIdx));
-}
-function startAdTimer() { clearInterval(adTimer); adTimer = setInterval(() => goAd(adIdx + 1), 4000); }
-document.getElementById('ads-prev').onclick = () => { goAd(adIdx - 1); startAdTimer(); };
-document.getElementById('ads-next').onclick = () => { goAd(adIdx + 1); startAdTimer(); };
-buildDots(); startAdTimer();
-
-// ─── MODAL ───────────────────────────────
-const modal      = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalFrame = document.getElementById('modal-frame');
-
-function openModal(videoId, title, autoplay = false) {
-  // Solo abrir si es video real, no auto-reproductor
-  modalTitle.textContent = title;
-  modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay?1:0}&rel=0&modestbranding=1`;
-  modal.classList.add('open');
-}
-function closeModal() {
-  modal.classList.remove('open');
-  setTimeout(() => { modalFrame.src = ''; }, 300);
-}
-document.getElementById('modal-close').onclick = closeModal;
-modal.onclick = (e) => { if(e.target === modal) closeModal(); };
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
-
-// ─── VIDEOS / PAGINACIÓN ─────────────────
-const VIDEOS_PER_PAGE = 5;
-let allVideos  = [];
-let currentPage = 0;
-const videosGrid  = document.getElementById('videos-grid');
-const videosCount = document.getElementById('videos-count');
-const pagRow      = document.getElementById('pagination-row');
-const pagPrev     = document.getElementById('pag-prev');
-const pagNext     = document.getElementById('pag-next');
-const pagInfo     = document.getElementById('pag-info');
-
-const CHANNEL_ID = 'UCubPnuTolaj0cJv0SK67rcw';
-const YT_API_KEY = 'AIzaSyCdWxkJGmL0Hq5bn_MX_XoTuuoTk6JMjT8';
-
-// ── MÉTODO 1: RSS feed nativo de YouTube (sin API key, sin cuota, siempre actualizado) ──
-async function fetchFromRSS() {
-  try {
-    // Usamos un proxy CORS público para acceder al RSS de YouTube
-    const rssUrl  = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-    const proxy   = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
-    const res     = await fetch(proxy, { cache: 'no-store' });
-    if (!res.ok) throw new Error('RSS proxy error');
-    const data    = await res.json();
-    const parser  = new DOMParser();
-    const xml     = parser.parseFromString(data.contents, 'application/xml');
-    const entries = Array.from(xml.querySelectorAll('entry'));
-    if (!entries.length) throw new Error('RSS vacío');
-
-    return entries.map(e => {
-      const videoId    = e.querySelector('videoId')?.textContent
-                      || e.querySelector('id')?.textContent?.split(':').pop() || '';
-      const title      = e.querySelector('title')?.textContent || 'Sin título';
-      const published  = e.querySelector('published')?.textContent || new Date().toISOString();
-      return {
-        id:      { videoId },
-        snippet: { title, publishedAt: published }
-      };
-    });
-  } catch(e) {
-    console.warn('RSS falló, intentando API:', e.message);
-    return null;
-  }
+const CH='UCubPnuTolaj0cJv0SK67rcw',KEY='AIzaSyCdWxkJGmL0Hq5bn_MX_XoTuuoTk6JMjT8';
+async function fetchYT(){
+  try{
+    let list=[],tok='',pg=0;
+    do{
+      const r=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CH}&type=video&order=date&maxResults=50${tok?'&pageToken='+tok:''}&key=${KEY}`);
+      const d=await r.json();
+      if(d.error)throw new Error(d.error.message);
+      list.push(...(d.items||[]));tok=d.nextPageToken||'';pg++;
+    }while(tok&&pg<4);
+    return list.length?list:null;
+  }catch(e){console.warn('YT:',e.message);return null}
 }
 
-// ── MÉTODO 2: RSS alternativo via rssproxy.migor.net ──
-async function fetchFromRSS2() {
-  try {
-    const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-    const proxy  = `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`;
-    const res    = await fetch(proxy, { cache: 'no-store' });
-    if (!res.ok) throw new Error('RSS2 error');
-    const text   = await res.text();
-    const parser = new DOMParser();
-    const xml    = parser.parseFromString(text, 'application/xml');
-    const entries = Array.from(xml.querySelectorAll('entry'));
-    if (!entries.length) throw new Error('RSS2 vacío');
-
-    return entries.map(e => {
-      const videoId   = e.querySelector('videoId')?.textContent
-                     || e.querySelector('id')?.textContent?.split(':').pop() || '';
-      const title     = e.querySelector('title')?.textContent || 'Sin título';
-      const published = e.querySelector('published')?.textContent || new Date().toISOString();
-      return {
-        id:      { videoId },
-        snippet: { title, publishedAt: published }
-      };
-    });
-  } catch(e) {
-    console.warn('RSS2 falló, intentando YouTube API:', e.message);
-    return null;
-  }
-}
-
-// ── MÉTODO 3: YouTube Data API (cuota limitada, último recurso) ──
-async function fetchFromAPI() {
-  try {
-    let videos = [], token = '', pages = 0;
-    do {
-      const url  = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&order=date&maxResults=50${token?'&pageToken='+token:''}&key=${YT_API_KEY}`;
-      const res  = await fetch(url);
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      videos.push(...(data.items || []));
-      token = data.nextPageToken || '';
-      pages++;
-    } while (token && pages < 4);
-    return videos.length ? videos : null;
-  } catch(e) {
-    console.warn('API de YouTube falló:', e.message);
-    return null;
-  }
-}
-
-// ── RENDER ──
-function renderPage(page) {
-  videosGrid.innerHTML = '';
-  const start = page * VIDEOS_PER_PAGE;
-  const end   = Math.min(start + VIDEOS_PER_PAGE, allVideos.length);
-  const total = Math.ceil(allVideos.length / VIDEOS_PER_PAGE);
-
-  for (let i = start; i < end; i++) {
-    const v       = allVideos[i];
-    const vid     = v.id.videoId || v.id;
-    const title   = v.snippet.title;
-    const date    = new Date(v.snippet.publishedAt);
-    const dateStr = date.toLocaleDateString('es-CO', { day:'numeric', month:'long', year:'numeric' });
-    const thumb   = `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
-    const isNew   = i < 3;
-
-    const card = document.createElement('div');
-    card.className = 'video-card fade-in';
-    card.style.animationDelay = `${(i - start) * 0.08}s`;
-    card.innerHTML = `
-      <div class="vc-thumb">
-        <img src="${thumb}" alt="${title}" loading="lazy">
-        <div class="vc-play"><div class="vc-play-icon">▶</div></div>
-        ${isNew ? '<div class="vc-new">NUEVO</div>' : ''}
-      </div>
-      <div class="vc-body">
-        <div class="vc-title">${title}</div>
-        <div class="vc-meta">${dateStr}</div>
-      </div>
-    `;
-    card.onclick = () => openModal(vid, title);
-    videosGrid.appendChild(card);
-  }
-
-  currentPage = page;
-  pagPrev.disabled = page === 0;
-  pagNext.disabled = page >= total - 1;
-  pagInfo.textContent = `Página ${page + 1} de ${total}`;
-  if (total > 1) pagRow.style.display = 'flex';
-}
-
-function initVideos(videos, source) {
-  ['skel1','skel2','skel3','skel4','skel5'].forEach(id => { const el=document.getElementById(id); if(el) el.remove(); });
-  allVideos = videos;
-  document.getElementById('video-count').textContent = videos.length;
-  videosCount.textContent = `${videos.length} episodios`;
-  console.log(`✅ Videos cargados desde: ${source} (${videos.length} videos)`);
-  renderPage(0);
-}
-
-pagPrev.onclick = () => {
-  renderPage(currentPage - 1);
-  window.scrollTo({ top: document.getElementById('podcast').offsetTop - 80, behavior: 'smooth' });
-};
-pagNext.onclick = () => {
-  renderPage(currentPage + 1);
-  window.scrollTo({ top: document.getElementById('podcast').offsetTop - 80, behavior: 'smooth' });
-};
-
-// ── INIT: intenta RSS → RSS2 → API YouTube, en cascada ──
-(async function init() {
-  // Método 1: RSS principal
-  const rss1 = await fetchFromRSS();
-  if (rss1 && rss1.length) { initVideos(rss1, 'RSS YouTube (allorigins)'); return; }
-
-  // Método 2: RSS alternativo
-  const rss2 = await fetchFromRSS2();
-  if (rss2 && rss2.length) { initVideos(rss2, 'RSS YouTube (corsproxy)'); return; }
-
-  // Método 3: YouTube Data API
-  const api = await fetchFromAPI();
-  if (api && api.length) { initVideos(api, 'YouTube Data API'); return; }
-
-  // Si todo falla, mostrar mensaje amigable
-  ['skel1','skel2','skel3','skel4','skel5'].forEach(id => { const el=document.getElementById(id); if(el) el.remove(); });
-  videosGrid.innerHTML = `
-    <div style="grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--gris-claro)">
-      <div style="font-size:2rem;margin-bottom:12px">📡</div>
-      <div style="font-family:'Rajdhani',sans-serif;font-size:1rem;margin-bottom:8px">No se pudo conectar con YouTube</div>
-      <div style="font-size:.8rem;color:var(--gris-medio)">Verifica tu conexión e intenta recargar la página</div>
-      <button onclick="location.reload()" style="margin-top:16px;padding:9px 24px;background:var(--neon-glow);color:var(--negro);border:none;border-radius:6px
+/* INIT — estáticos primero, API después */
+initV(S);
+fetchYT().then(live=>{if(live&&live.length)initV(live)});
+</script>
+</body>
+</html>
