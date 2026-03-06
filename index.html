@@ -1,1080 +1,1933 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Henry Forero – Cuarto Poder Radio</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-/* ═══════════════════════════════════════
-   VARIABLES — PALETA NOTICIOSA AZUL/NEGRO/BLANCO
-═══════════════════════════════════════ */
-:root {
-  --azul-profundo:   #0a1628;
-  --azul-medio:      #0d2247;
-  --azul-vivo:       #1565c0;
-  --azul-brillante:  #1e88e5;
-  --azul-cielo:      #42a5f5;
-  --azul-claro:      #bbdefb;
-  --blanco:          #ffffff;
-  --blanco-hueso:    #f0f4f8;
-  --gris-claro:      #cfd8e3;
-  --gris-medio:      #78909c;
-  --negro:           #050d1a;
-  --acento:          #29b6f6;
-  --ticker-bg:       #1565c0;
-}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Henry Forero — Cuarto Poder Radio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul: #0a5cff;
+            --azul-oscuro: #0038a8;
+            --azul-claro: #00d4ff;
+            --neon-cyan: #00ffff;
+            --neon-purple: #ff00ff;
+            --negro: #0a0e27;
+            --gris-oscuro: #1a1f3a;
+            --gris-medio: #2d3555;
+            --blanco: #f0f4ff;
+            --crema: #e8ecf8;
+        }
 
-/* RESET */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* ═══════════════════════════════════════
-   TEXTURA DE FONDO
-═══════════════════════════════════════ */
-body {
-  font-family: 'Source Sans 3', sans-serif;
-  background-color: var(--azul-profundo);
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(21,101,192,.35) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 100%, rgba(13,34,71,.6) 0%, transparent 60%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%230a1628'/%3E%3Crect width='1' height='1' fill='%230d2247' opacity='.4'/%3E%3C/svg%3E");
-  color: var(--blanco);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* ═══════════════════════════════════════
-   TICKER SUPERIOR
-═══════════════════════════════════════ */
-.ticker-bar {
-  background: var(--ticker-bg);
-  padding: 8px 0;
-  overflow: hidden;
-  border-bottom: 2px solid var(--azul-brillante);
-  position: relative;
-}
-.ticker-label {
-  position: absolute; left: 0; top: 0;
-  background: var(--negro);
-  color: var(--acento);
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; font-weight: 700;
-  letter-spacing: .12em; text-transform: uppercase;
-  padding: 0 14px; height: 100%;
-  display: flex; align-items: center;
-  z-index: 2;
-  border-right: 2px solid var(--azul-brillante);
-}
-.ticker-track {
-  display: flex;
-  animation: ticker-move 40s linear infinite;
-  white-space: nowrap;
-  padding-left: 110px;
-}
-.ticker-track span {
-  font-family: 'Oswald', sans-serif;
-  font-size: .75rem; font-weight: 400;
-  color: var(--blanco); letter-spacing: .05em;
-  padding: 0 32px;
-}
-.ticker-track span::before { content: "◆ "; color: var(--acento); }
-@keyframes ticker-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        body {
+            background: linear-gradient(135deg, var(--negro) 0%, #0f1429 50%, #1a1f3a 100%);
+            background-attachment: fixed;
+            color: var(--blanco);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-/* ═══════════════════════════════════════
-   BANNER SUPERIOR (REEMPLAZABLE)
-═══════════════════════════════════════ */
-.banner-header {
-  width: 100%;
-  background: linear-gradient(135deg, var(--azul-medio) 0%, var(--negro) 100%);
-  border-bottom: 3px solid var(--azul-vivo);
-  display: flex; justify-content: center; align-items: center;
-  overflow: hidden;
-}
-.banner-header img.banner-img {
-  width: 100%; max-width: 1280px;
-  height: auto; max-height: 130px;
-  object-fit: cover; display: block;
-}
-/* Placeholder cuando no hay imagen real */
-.banner-placeholder {
-  width: 100%; max-width: 1280px;
-  height: 110px;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  gap: 4px;
-  background: linear-gradient(90deg, var(--azul-profundo), var(--azul-medio), var(--azul-profundo));
-  border: 2px dashed rgba(66,165,245,.35);
-  border-radius: 4px; margin: 12px;
-}
-.banner-placeholder .bp-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.2rem; letter-spacing: .1em;
-  color: var(--blanco);
-}
-.banner-placeholder .bp-sub {
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; letter-spacing: .25em;
-  color: var(--azul-cielo); text-transform: uppercase;
-}
-.banner-placeholder .bp-hint {
-  font-size: .62rem; color: var(--gris-medio);
-  margin-top: 4px;
-}
-@media (max-width: 768px) {
-  .banner-placeholder { height: 80px; margin: 8px; }
-  .banner-placeholder .bp-title { font-size: 1.5rem; }
-}
+        /* NOISE OVERLAY */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 9999;
+        }
 
-/* ═══════════════════════════════════════
-   NAVEGACIÓN
-═══════════════════════════════════════ */
-nav.main-nav {
-  background: var(--negro);
-  border-bottom: 2px solid var(--azul-vivo);
-  position: sticky; top: 0; z-index: 100;
-}
-.nav-inner {
-  max-width: 1280px; margin: 0 auto;
-  padding: 0 20px;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.nav-brand {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.25rem; letter-spacing: .08em;
-  color: var(--blanco);
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 0;
-  text-decoration: none;
-}
-.nav-brand .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--azul-brillante);
-  animation: pulse-dot 1.5s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%,100% { box-shadow: 0 0 0 0 rgba(30,136,229,.7); }
-  50%      { box-shadow: 0 0 0 6px rgba(30,136,229,0); }
-}
-.nav-links { display: flex; gap: 4px; }
-.nav-links a {
-  font-family: 'Oswald', sans-serif;
-  font-size: .75rem; font-weight: 500; letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--gris-claro);
-  padding: 14px 16px; text-decoration: none;
-  border-bottom: 3px solid transparent;
-  transition: color .2s, border-color .2s;
-}
-.nav-links a:hover, .nav-links a.active {
-  color: var(--blanco);
-  border-bottom-color: var(--azul-brillante);
-}
-.nav-clock {
-  font-family: 'Oswald', sans-serif;
-  font-size: .8rem; color: var(--acento);
-  letter-spacing: .05em;
-}
-@media (max-width: 640px) {
-  .nav-clock { display: none; }
-  .nav-links a { padding: 14px 10px; font-size: .68rem; }
-}
+        /* TICKER */
+        .ticker {
+            background: linear-gradient(90deg, var(--azul) 0%, var(--neon-cyan) 100%);
+            height: 36px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
 
-/* ═══════════════════════════════════════
-   CONTENEDOR PRINCIPAL
-═══════════════════════════════════════ */
-.page-wrapper {
-  max-width: 1280px; margin: 0 auto; padding: 24px 20px 48px;
-}
+        .ticker-tag {
+            background: var(--negro);
+            color: var(--neon-cyan);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 3px;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            border-right: 2px solid rgba(0, 255, 255, 0.3);
+            white-space: nowrap;
+        }
 
-/* ═══════════════════════════════════════
-   REPRODUCTOR DE RADIO — AUTO DJ
-═══════════════════════════════════════ */
-.radio-player-strip {
-  background: linear-gradient(90deg, var(--negro) 0%, var(--azul-profundo) 50%, var(--negro) 100%);
-  border: 1px solid var(--azul-vivo);
-  border-radius: 8px;
-  padding: 14px 20px;
-  margin-bottom: 24px;
-  display: flex; align-items: center; gap: 16px;
-  position: relative; overflow: hidden;
-}
-.radio-player-strip::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(21,101,192,.08) 50%, transparent 100%);
-  animation: shimmer 3s ease-in-out infinite;
-}
-@keyframes shimmer { 0%,100%{opacity:.5} 50%{opacity:1} }
-.rp-icon {
-  width: 44px; height: 44px; flex-shrink: 0;
-  background: var(--azul-vivo);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 0 16px rgba(21,101,192,.6);
-  animation: spin-icon 4s linear infinite;
-}
-@keyframes spin-icon { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-.rp-info { flex: 1; min-width: 0; }
-.rp-label {
-  font-family: 'Oswald', sans-serif;
-  font-size: .65rem; letter-spacing: .15em;
-  color: var(--acento); text-transform: uppercase;
-}
-.rp-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: .95rem; color: var(--blanco);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  transition: opacity .4s;
-}
-.rp-controls { display: flex; gap: 8px; align-items: center; }
-.rp-btn {
-  background: rgba(21,101,192,.3);
-  border: 1px solid var(--azul-brillante);
-  color: var(--blanco);
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; letter-spacing: .08em;
-  padding: 6px 14px; border-radius: 4px; cursor: pointer;
-  transition: background .2s;
-}
-.rp-btn:hover { background: var(--azul-vivo); }
-.rp-btn.playing { background: var(--azul-vivo); }
-.rp-progress {
-  flex: 1; height: 4px;
-  background: rgba(255,255,255,.1);
-  border-radius: 2px; overflow: hidden; min-width: 60px;
-}
-.rp-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--azul-brillante), var(--acento));
-  width: 0%;
-  transition: width .5s linear;
-}
-@media (max-width: 640px) {
-  .radio-player-strip { flex-wrap: wrap; gap: 10px; }
-  .rp-progress { width: 100%; }
-}
+        .ticker-scroll {
+            display: flex;
+            animation: scroll-left 40s linear infinite;
+            white-space: nowrap;
+        }
 
-/* ═══════════════════════════════════════
-   SLIDER DE PUBLICIDAD
-═══════════════════════════════════════ */
-.ads-slider-section { margin-bottom: 28px; }
-.ads-slider-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: .65rem; letter-spacing: .2em;
-  color: var(--gris-medio); text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.ads-slider-wrap {
-  position: relative; overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid rgba(21,101,192,.25);
-}
-.ads-track {
-  display: flex;
-  transition: transform .6s cubic-bezier(.4,0,.2,1);
-}
-.ad-slide {
-  min-width: 100%;
-  height: 160px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.ad-slide img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.ad-slide .ad-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(10,22,40,.7) 0%, transparent 60%);
-  display: flex; align-items: center; padding: 24px;
-}
-.ad-slide .ad-text {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.4rem; font-weight: 600;
-  color: var(--blanco); line-height: 1.2;
-  text-shadow: 0 2px 8px rgba(0,0,0,.8);
-  max-width: 280px;
-}
-.ad-slide .ad-tag {
-  font-size: .6rem; letter-spacing: .2em;
-  color: var(--acento); text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.ads-dots {
-  display: flex; justify-content: center; gap: 6px;
-  padding: 8px 0;
-}
-.ads-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(255,255,255,.25); cursor: pointer;
-  transition: background .2s, transform .2s;
-}
-.ads-dot.active { background: var(--azul-brillante); transform: scale(1.4); }
-.ads-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(5,13,26,.7);
-  border: 1px solid rgba(30,136,229,.4);
-  color: var(--blanco); width: 32px; height: 32px;
-  border-radius: 50%; cursor: pointer; font-size: .9rem;
-  display: flex; align-items: center; justify-content: center;
-  z-index: 3; transition: background .2s;
-}
-.ads-arrow:hover { background: var(--azul-vivo); }
-.ads-arrow.left { left: 10px; }
-.ads-arrow.right { right: 10px; }
-@media (max-width: 640px) { .ad-slide { height: 100px; } }
+        .ticker-scroll span {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            color: #fff;
+            padding: 0 48px;
+            opacity: 0.95;
+        }
 
-/* ═══════════════════════════════════════
-   SECCIÓN PRINCIPAL — VIDEO + SIDEBAR
-═══════════════════════════════════════ */
-.main-grid {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-@media (max-width: 900px) {
-  .main-grid { grid-template-columns: 1fr; }
-}
+        .ticker-scroll span::before {
+            content: "◆ ";
+        }
 
-/* Video principal */
-.main-video-wrap {
-  background: var(--negro);
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid rgba(21,101,192,.3);
-  box-shadow: 0 8px 40px rgba(0,0,0,.5);
-}
-.video-header {
-  background: linear-gradient(90deg, var(--negro), var(--azul-medio));
-  padding: 12px 16px;
-  display: flex; align-items: center; gap: 10px;
-  border-bottom: 2px solid var(--azul-vivo);
-}
-.live-badge {
-  background: #d32f2f;
-  color: #fff; font-family: 'Oswald', sans-serif;
-  font-size: .65rem; font-weight: 700; letter-spacing: .12em;
-  padding: 3px 10px; border-radius: 3px;
-  display: flex; align-items: center; gap: 5px;
-}
-.live-badge .live-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #fff;
-  animation: blink 1s ease-in-out infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-.video-title-bar {
-  font-family: 'Oswald', sans-serif;
-  font-size: .9rem; color: var(--blanco); flex: 1;
-}
-.video-embed {
-  position: relative; padding-bottom: 56.25%;
-  background: #000;
-}
-.video-embed iframe {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  border: none;
-}
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
-/* SIDEBAR */
-.sidebar { display: flex; flex-direction: column; gap: 16px; }
+        /* BANNER HEADER */
+        .banner {
+            background: linear-gradient(135deg, rgba(10, 20, 50, 0.8) 0%, rgba(10, 92, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 20px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 92, 255, 0.15);
+        }
 
-.sidebar-card {
-  background: var(--azul-medio);
-  border: 1px solid rgba(21,101,192,.35);
-  border-radius: 10px; overflow: hidden;
-}
-.sc-header {
-  background: var(--negro);
-  padding: 10px 14px;
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; letter-spacing: .18em;
-  color: var(--acento); text-transform: uppercase;
-  border-bottom: 2px solid var(--azul-vivo);
-  display: flex; align-items: center; gap: 8px;
-}
-.sc-body { padding: 16px 14px; }
+        .banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--azul), var(--neon-cyan), var(--azul), transparent);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
 
-/* Card canal */
-.channel-avatar {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: var(--azul-vivo);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem; margin: 0 auto 12px;
-  border: 3px solid var(--azul-brillante);
-  box-shadow: 0 0 20px rgba(21,101,192,.5);
-}
-.channel-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem; letter-spacing: .05em;
-  text-align: center; color: var(--blanco);
-  line-height: 1.1; margin-bottom: 4px;
-}
-.channel-sub {
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; color: var(--azul-cielo);
-  letter-spacing: .12em; text-transform: uppercase;
-  text-align: center; margin-bottom: 14px;
-}
-.stats-row {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 8px; margin-bottom: 14px;
-}
-.stat-box {
-  background: rgba(10,22,40,.5);
-  border-radius: 6px; padding: 8px 4px;
-  text-align: center;
-  border: 1px solid rgba(21,101,192,.2);
-}
-.stat-n {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem; color: var(--azul-brillante);
-}
-.stat-l {
-  font-size: .58rem; color: var(--gris-medio);
-  text-transform: uppercase; letter-spacing: .08em;
-}
-.subscribe-btn {
-  display: block; width: 100%;
-  background: linear-gradient(90deg, #d32f2f, #b71c1c);
-  color: #fff; text-align: center; text-decoration: none;
-  font-family: 'Oswald', sans-serif;
-  font-size: .75rem; font-weight: 600; letter-spacing: .12em;
-  padding: 10px; border-radius: 6px;
-  transition: opacity .2s;
-}
-.subscribe-btn:hover { opacity: .85; }
+        .banner-logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            z-index: 2;
+        }
 
-/* Social links */
-.social-links { display: flex; flex-direction: column; gap: 8px; }
-.social-link {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px; border-radius: 6px;
-  border: 1px solid rgba(21,101,192,.2);
-  text-decoration: none; color: var(--blanco);
-  font-family: 'Oswald', sans-serif; font-size: .75rem;
-  transition: background .2s, border-color .2s;
-}
-.social-link:hover { background: rgba(21,101,192,.2); border-color: var(--azul-brillante); }
-.social-link .si { width: 20px; text-align: center; font-size: 1rem; }
+        .logo-emblem {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--azul) 0%, var(--neon-cyan) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.4), 0 0 0 1px rgba(0, 255, 255, 0.3);
+            flex-shrink: 0;
+            position: relative;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+        }
 
-/* ═══════════════════════════════════════
-   SECCIÓN PODCASTS / GALERÍA
-═══════════════════════════════════════ */
-.section-heading {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 20px;
-}
-.sh-bar {
-  width: 4px; height: 28px;
-  background: linear-gradient(180deg, var(--azul-brillante), var(--acento));
-  border-radius: 2px;
-}
-.sh-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.6rem; letter-spacing: .06em;
-  color: var(--blanco);
-}
-.sh-count {
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; color: var(--gris-medio);
-  letter-spacing: .1em; margin-left: auto;
-}
+        .logo-text-wrap {
+            line-height: 1;
+        }
 
-.videos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 18px;
-}
+        .logo-main {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 28px;
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            display: block;
+        }
 
-.video-card {
-  background: var(--azul-medio);
-  border: 1px solid rgba(21,101,192,.2);
-  border-radius: 10px; overflow: hidden;
-  cursor: pointer;
-  transition: transform .25s, box-shadow .25s, border-color .25s;
-}
-.video-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,.5);
-  border-color: var(--azul-brillante);
-}
-.vc-thumb {
-  position: relative;
-  padding-bottom: 56.25%;
-  background: var(--negro);
-  overflow: hidden;
-}
-.vc-thumb img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform .3s;
-}
-.video-card:hover .vc-thumb img { transform: scale(1.05); }
-.vc-play {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,.35);
-  opacity: 0; transition: opacity .2s;
-}
-.video-card:hover .vc-play { opacity: 1; }
-.vc-play-icon {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: rgba(21,101,192,.9);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  box-shadow: 0 0 20px rgba(21,101,192,.6);
-}
-.vc-new {
-  position: absolute; top: 8px; left: 8px;
-  background: var(--azul-brillante);
-  color: #fff; font-family: 'Oswald', sans-serif;
-  font-size: .6rem; letter-spacing: .1em;
-  padding: 2px 8px; border-radius: 3px;
-}
-.vc-body { padding: 12px; }
-.vc-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: .85rem; font-weight: 500;
-  color: var(--blanco); line-height: 1.35;
-  margin-bottom: 6px;
-  display: -webkit-box; -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-.vc-meta {
-  font-size: .68rem; color: var(--gris-medio);
-  display: flex; align-items: center; gap: 6px;
-}
-.vc-meta::before { content: "📅"; font-size: .7rem; }
+        .logo-sub {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: var(--neon-cyan);
+            font-weight: 400;
+            text-transform: uppercase;
+            margin-top: 4px;
+            display: block;
+        }
 
-/* ═══════════════════════════════════════
-   MODAL
-═══════════════════════════════════════ */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(5,13,26,.92);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none;
-  transition: opacity .3s;
-}
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-.modal-box {
-  width: 100%; max-width: 900px;
-  background: var(--negro);
-  border: 1px solid var(--azul-vivo);
-  border-radius: 12px; overflow: hidden;
-  transform: scale(.95);
-  transition: transform .3s;
-}
-.modal-overlay.open .modal-box { transform: scale(1); }
-.modal-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 16px;
-  background: var(--azul-medio);
-  border-bottom: 2px solid var(--azul-vivo);
-}
-.modal-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: .85rem; color: var(--blanco);
-  max-width: 80%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.modal-close {
-  background: rgba(255,255,255,.1); border: none;
-  color: var(--blanco); width: 28px; height: 28px;
-  border-radius: 50%; cursor: pointer; font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
-}
-.modal-close:hover { background: #d32f2f; }
-.modal-video {
-  position: relative; padding-bottom: 56.25%;
-  background: #000;
-}
-.modal-video iframe {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; border: none;
-}
+        .banner-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 2;
+        }
 
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
-footer {
-  background: var(--negro);
-  border-top: 2px solid var(--azul-vivo);
-  padding: 20px;
-  text-align: center;
-  font-family: 'Oswald', sans-serif;
-  font-size: .7rem; letter-spacing: .1em;
-  color: var(--gris-medio);
-}
-footer span { color: var(--azul-cielo); }
+        .live-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1.5px solid var(--neon-cyan);
+            border-radius: 30px;
+            padding: 8px 18px;
+            animation: glow-pulse 2.5s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
 
-/* ═══════════════════════════════════════
-   ANIMACIÓN DE ENTRADA
-═══════════════════════════════════════ */
-.fade-in { animation: fade-up .5s ease both; }
-@keyframes fade-up {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-</style>
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: blink 1.1s ease-in-out infinite;
+            box-shadow: 0 0 12px var(--neon-cyan);
+        }
+
+        .live-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--neon-cyan);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); }
+        }
+
+        /* NAV */
+        nav {
+            background: rgba(10, 20, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 0 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 50px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 8px 18px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--crema);
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 6px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--azul), var(--neon-cyan));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--neon-cyan);
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .nav-time {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 48px 40px;
+        }
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .eyebrow-line {
+            width: 36px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--azul), var(--neon-cyan));
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .eyebrow-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .hero-headline {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: clamp(36px, 5.5vw, 72px);
+            line-height: 0.92;
+            letter-spacing: -1px;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-headline em {
+            font-style: italic;
+            color: var(--neon-cyan);
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: var(--crema);
+            font-weight: 300;
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        /* LIVE GRID */
+        .live-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* EMBED CARD */
+        .embed-card {
+            background: linear-gradient(135deg, rgba(10, 92, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.4s;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 92, 255, 0.2);
+        }
+
+        .embed-card:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 16px 48px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 92, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .embed-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            color: var(--negro);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 3px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .embed-ratio {
+            position: relative;
+            padding-top: 56.25%;
+        }
+
+        .embed-ratio iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* SIDEBAR */
+        .live-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sidebar-card {
+            background: linear-gradient(135deg, rgba(10, 92, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 8px 32px rgba(0, 92, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-card-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-card-title::before {
+            content: '';
+            width: 14px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--azul), var(--neon-cyan));
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .about-text {
+            font-size: 13px;
+            color: var(--crema);
+            line-height: 1.75;
+            font-weight: 300;
+        }
+
+        .about-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* STATS */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .stat-box {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 92, 255, 0.1);
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-lbl {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: var(--crema);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* SOCIAL BUTTONS */
+        .social-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .soc-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 11px 14px;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .soc-btn:hover {
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border-color: var(--neon-cyan);
+            color: var(--negro);
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .soc-btn svg {
+            flex-shrink: 0;
+            opacity: 0.8;
+        }
+
+        .soc-btn:hover svg {
+            opacity: 1;
+        }
+
+        /* SLIDER */
+        .slider-section {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 0 48px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(10, 92, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 16px 48px rgba(0, 92, 255, 0.2);
+        }
+
+        .slider-wrapper {
+            position: relative;
+            padding-top: 33.33%;
+            overflow: hidden;
+        }
+
+        .slider-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-item {
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(10, 92, 255, 0.2) 0%, rgba(0, 255, 255, 0.1) 100%);
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 20, 50, 0.3) 0%, transparent 100%);
+            z-index: 2;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            color: var(--neon-cyan);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .slider-nav:hover {
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            color: var(--negro);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-prev {
+            left: 20px;
+        }
+
+        .slider-next {
+            right: 20px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .dot.active {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            width: 32px;
+            border-radius: 6px;
+        }
+
+        .slider-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            color: var(--neon-cyan);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        /* VIDEOS SECTION */
+        .videos-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 48px 80px;
+        }
+
+        .videos-top {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .videos-heading {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: clamp(28px, 4vw, 52px);
+            line-height: 1;
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .videos-heading span {
+            color: var(--neon-cyan);
+        }
+
+        .videos-count {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--crema);
+            margin-top: 6px;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .f-btn {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: var(--crema);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .f-btn:hover,
+        .f-btn.on {
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border-color: var(--neon-cyan);
+            color: var(--negro);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        /* GRID */
+        .vgrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 22px;
+        }
+
+        .vcard {
+            background: linear-gradient(135deg, rgba(10, 92, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 92, 255, 0.15);
+        }
+
+        .vcard:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 92, 255, 0.2);
+        }
+
+        .vthumb {
+            position: relative;
+            padding-top: 56.25%;
+            background: var(--gris-medio);
+            overflow: hidden;
+        }
+
+        .vthumb img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .vcard:hover .vthumb img {
+            transform: scale(1.08);
+        }
+
+        .voverlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .vcard:hover .voverlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .vplay {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0);
+            opacity: 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 24px rgba(0, 255, 255, 0.6);
+        }
+
+        .vcard:hover .vplay {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .vdur {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            color: var(--neon-cyan);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .vnew-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            color: var(--negro);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .vinfo {
+            padding: 16px 18px;
+        }
+
+        .vmeta {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        .vtitle {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--crema);
+            line-height: 1.35;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .vstats {
+            display: flex;
+            gap: 16px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--crema);
+        }
+
+        /* SKELETON */
+        .skeleton {
+            background: linear-gradient(90deg, var(--gris-oscuro) 25%, var(--gris-medio) 50%, var(--gris-oscuro) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* LOAD MORE */
+        .load-more-wrap {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .load-more-btn {
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            color: var(--negro);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            letter-spacing: 3px;
+            padding: 13px 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: 600;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .load-more-btn:hover {
+            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .load-more-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* MODAL */
+        .modal-bg {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-bg.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: linear-gradient(135deg, rgba(10, 92, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 960px;
+            transform: scale(0.94) translateY(16px);
+            transition: transform 0.3s;
+            box-shadow: 0 40px 120px rgba(0, 92, 255, 0.3);
+        }
+
+        .modal-bg.open .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .mhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 22px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(10, 92, 255, 0.1);
+        }
+
+        .mhead-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: var(--crema);
+            max-width: calc(100% - 50px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mclose {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 6px;
+            color: var(--neon-cyan);
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .mclose:hover {
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border-color: var(--neon-cyan);
+            color: var(--negro);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .mframe {
+            position: relative;
+            padding-top: 56.25%;
+        }
+
+        .mframe iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* RADIO PLAYER */
+        .radio-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(10, 92, 255, 0.2) 0%, rgba(0, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            border-top: 2px solid rgba(0, 255, 255, 0.4);
+            padding: 12px 20px;
+            z-index: 500;
+            box-shadow: 0 -8px 32px rgba(0, 92, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .radio-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .radio-btn {
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border: none;
+            color: var(--negro);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            flex-shrink: 0;
+        }
+
+        .radio-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 32px;
+        }
+
+        .bar {
+            width: 3px;
+            background: linear-gradient(180deg, var(--neon-cyan), var(--azul));
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+            animation: wave 0.6s ease-in-out infinite;
+        }
+
+        .bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+        .bar:nth-child(2) { height: 40%; animation-delay: 0.2s; }
+        .bar:nth-child(3) { height: 80%; animation-delay: 0.4s; }
+        .bar:nth-child(4) { height: 50%; animation-delay: 0.6s; }
+        .bar:nth-child(5) { height: 70%; animation-delay: 0.8s; }
+
+        @keyframes wave {
+            0%, 100% { height: 40%; }
+            50% { height: 100%; }
+        }
+
+        .radio-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .radio-status {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-indicator {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: blink 1.1s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        .radio-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            color: var(--blanco);
+            font-weight: 600;
+        }
+
+        .radio-middle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .volume-icon {
+            color: var(--neon-cyan);
+            font-size: 16px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, var(--azul), var(--neon-cyan));
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        /* WHATSAPP BUBBLE */
+        .whatsapp-bubble {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25d366, #20ba63);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 400;
+            box-shadow: 0 4px 32px rgba(37, 211, 102, 0.4);
+            animation: bounce 2s ease-in-out infinite;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .whatsapp-bubble:hover {
+            transform: scale(1.15);
+            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-bubble svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            bottom: 75px;
+            right: 0;
+            background: linear-gradient(135deg, #25d366, #20ba63);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-bubble:hover .whatsapp-tooltip {
+            opacity: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, rgba(10, 20, 50, 0.8) 0%, rgba(10, 92, 255, 0.1) 100%);
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 36px 48px;
+            margin-top: 60px;
+            box-shadow: 0 -8px 32px rgba(0, 92, 255, 0.15);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 18px;
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--neon-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--crema);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-copy {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--crema);
+        }
+
+        /* DIVIDER */
+        .section-divider {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 0 48px;
+        }
+
+        .divider-line {
+            border: none;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+            margin-bottom: 0;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .divider-line::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--neon-cyan), transparent);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .banner, nav, .hero, .slider-section, .section-divider, .videos-section {
+                padding-left: 28px;
+                padding-right: 28px;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .live-grid {
+                grid-template-columns: 1fr;
+            }
+            .live-sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .sidebar-card {
+                flex: 1 1 240px;
+            }
+            nav .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .banner {
+                padding: 16px 20px;
+                min-height: 70px;
+            }
+            .logo-main {
+                font-size: 20px;
+            }
+            .logo-sub {
+                font-size: 9px;
+            }
+            .logo-emblem {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+            }
+            .hero, .slider-section, .section-divider, .videos-section {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+            .vgrid {
+                grid-template-columns: 1fr;
+            }
+            .live-sidebar {
+                flex-direction: column;
+            }
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .footer-links {
+                display: none;
+            }
+            .radio-player {
+                flex-direction: column;
+            }
+            .radio-middle {
+                width: 100%;
+            }
+        }
+
+        /* FADE IN */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadein 0.6s forwards;
+        }
+
+        @keyframes fadein {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-
-<!-- ══════════ TICKER ══════════ -->
-<div class="ticker-bar">
-  <div class="ticker-label">EN VIVO</div>
-  <div class="ticker-track" id="ticker">
-    <span>Cuarto Poder Radio transmite en vivo todos los días</span>
-    <span>Henry Forero — Periodismo sin censura</span>
-    <span>Síguenos en YouTube: @henryforero7257</span>
-    <span>Información veraz y oportuna para Colombia</span>
-    <span>Podcasts disponibles todos los días a las 12:00 pm</span>
-    <span>Cuarto Poder Radio transmite en vivo todos los días</span>
-    <span>Henry Forero — Periodismo sin censura</span>
-    <span>Síguenos en YouTube: @henryforero7257</span>
-    <span>Información veraz y oportuna para Colombia</span>
-    <span>Podcasts disponibles todos los días a las 12:00 pm</span>
-  </div>
-</div>
-
-<!-- ══════════ BANNER EMISORA (REEMPLAZABLE) ══════════ -->
-<div class="banner-header">
-  <!-- Para reemplazar: cambia esta sección por <img class="banner-img" src="TU-BANNER.jpg" alt="Cuarto Poder Radio"> -->
-  <div class="banner-placeholder">
-    <div class="bp-title">CUARTO PODER RADIO</div>
-    <div class="bp-sub">Henry Forero · Periodismo Independiente</div>
-    <div class="bp-hint">[ Reemplaza este espacio con el banner de la emisora — ancho recomendado: 1280×130 px ]</div>
-  </div>
-</div>
-
-<!-- ══════════ NAV ══════════ -->
-<nav class="main-nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-brand">
-      <div class="dot"></div>
-      CUARTO PODER
-    </a>
-    <div class="nav-links">
-      <a href="#en-vivo" class="active">En Vivo</a>
-      <a href="#podcast">Podcast</a>
-      <a href="mailto:contacto@henryforero.com">Contacto</a>
+    <!-- TICKER -->
+    <div class="ticker">
+        <div class="ticker-tag">ÚLTIMAS NOTICIAS</div>
+        <div class="ticker-scroll" id="tickerTrack">
+            <span>Bienvenidos a Cuarto Poder Radio — El poder de la verdad</span>
+            <span>Transmisión EN VIVO desde Panamá para el mundo</span>
+            <span>Henry Forero — Periodismo independiente y comprometido</span>
+            <span>Noticias, análisis y entrevistas de alto impacto</span>
+            <span>Suscríbete a nuestro canal de YouTube y activa las notificaciones</span>
+            <span>Síguenos en todas las plataformas digitales</span>
+            <span>Bienvenidos a Cuarto Poder Radio — El poder de la verdad</span>
+            <span>Transmisión EN VIVO desde Panamá para el mundo</span>
+            <span>Henry Forero — Periodismo independiente y comprometido</span>
+            <span>Noticias, análisis y entrevistas de alto impacto</span>
+            <span>Suscríbete a nuestro canal de YouTube y activa las notificaciones</span>
+            <span>Síguenos en todas las plataformas digitales</span>
+        </div>
     </div>
-    <div class="nav-clock" id="clock">--:-- --</div>
-  </div>
-</nav>
 
-<!-- ══════════ CONTENIDO ══════════ -->
-<div class="page-wrapper">
-
-  <!-- AUTO-DJ RADIO PLAYER -->
-  <div class="radio-player-strip fade-in" id="radio-player">
-    <div class="rp-icon" id="rp-disc">🎙️</div>
-    <div class="rp-info">
-      <div class="rp-label">▶ Auto-DJ · Cuarto Poder Radio</div>
-      <div class="rp-title" id="rp-track-title">Listo para reproducir…</div>
-    </div>
-    <div class="rp-progress"><div class="rp-bar" id="rp-bar"></div></div>
-    <div class="rp-controls">
-      <button class="rp-btn" id="rp-prev" title="Anterior">⏮</button>
-      <button class="rp-btn playing" id="rp-play" title="Reproducir/Pausar">▶ Reproducir</button>
-      <button class="rp-btn" id="rp-next" title="Siguiente">⏭</button>
-    </div>
-  </div>
-
-  <!-- SLIDER PUBLICIDAD -->
-  <div class="ads-slider-section fade-in">
-    <div class="ads-slider-title">Publicidad</div>
-    <div class="ads-slider-wrap">
-      <div class="ads-track" id="ads-track">
-
-        <div class="ad-slide" onclick="this.style.opacity=.8">
-          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80" alt="Publicidad 1">
-          <div class="ad-overlay">
-            <div class="ad-text">
-              <div class="ad-tag">Publicidad</div>
-              Tu marca aquí<br>llega a miles
+    <!-- BANNER / HEADER -->
+    <header class="banner">
+        <a href="#" class="banner-logo">
+            <div class="logo-emblem">📡</div>
+            <div class="logo-text-wrap">
+                <span class="logo-main">Henry Forero</span>
+                <span class="logo-sub">Cuarto Poder Radio</span>
             </div>
-          </div>
+        </a>
+        <div class="banner-right">
+            <div class="live-pill">
+                <div class="live-dot"></div>
+                <span class="live-text">EN VIVO</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAV -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#vivo" class="active">En Vivo</a></li>
+            <li><a href="#slider">Publicidad</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="https://youtube.com/@henryforero7257" target="_blank">YouTube</a></li>
+        </ul>
+        <div class="nav-time" id="navTime"></div>
+    </nav>
+
+    <!-- HERO EN VIVO -->
+    <section class="hero fade-in" id="vivo" style="animation-delay: 0.1s">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">Transmisión en directo</span>
+        </div>
+        <h1 class="hero-headline">Míranos<br><em>en vivo</em></h1>
+        <p class="hero-sub">Periodismo independiente en tiempo real. Cuando estemos al aire, el video aparece aquí automáticamente con un solo clic.</p>
+
+        <div class="live-grid">
+            <!-- EMBED EN VIVO -->
+            <div class="embed-card">
+                <div class="embed-badge">
+                    <div class="live-dot"></div>
+                    EN VIVO
+                </div>
+                <div class="embed-ratio">
+                    <iframe id="liveFrame" src="https://www.youtube.com/embed/live_stream?channel=UCubPnuTolaj0cJv0SK67rcw&autoplay=0&rel=0&modestbranding=1&color=white" allowfullscreen allow="autoplay; encrypted-media" title="Transmisión en vivo — Henry Forero Cuarto Poder Radio"></iframe>
+                </div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <aside class="live-sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-card-title">El Canal</div>
+                    <span class="about-name">Henry Forero</span>
+                    <p class="about-text">Periodista y comunicador. Director de <strong style="color: var(--neon-cyan)">Cuarto Poder Radio</strong>. Análisis político, noticias de actualidad y entrevistas exclusivas desde Panamá para Latinoamérica.</p>
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <span class="stat-num" id="statVids">—</span>
+                            <span class="stat-lbl">VIDEOS</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-num">24/7</span>
+                            <span class="stat-lbl">EN LÍNEA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-card-title">Síguenos</div>
+                    <div class="social-stack">
+                        <a href="https://youtube.com/@henryforero7257" target="_blank" class="soc-btn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.75 15.5V8.5l6.5 3.5-6.5 3.5z"/></svg>
+                            YOUTUBE
+                        </a>
+                        <a href="#" class="soc-btn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+                            FACEBOOK
+                        </a>
+                        <a href="#" class="soc-btn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            X / TWITTER
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="section-divider"><hr class="divider-line"></div>
+
+    <!-- SLIDER PUBLICIDAD -->
+    <section class="slider-section fade-in" id="slider" style="animation-delay: 0.2s">
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                <div class="slider-inner" id="sliderInner">
+                    <!-- Los items se generarán con JavaScript -->
+                </div>
+                <div class="slider-overlay"></div>
+            </div>
+            
+            <button class="slider-nav slider-prev" onclick="prevSlide()">‹</button>
+            <button class="slider-nav slider-next" onclick="nextSlide()">›</button>
+            
+            <div class="slider-counter" id="sliderCounter">1 / 10</div>
+            <div class="slider-dots" id="dotsContainer">
+                <!-- Los dots se generarán con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="section-divider"><hr class="divider-line"></div>
+
+    <!-- VIDEOS -->
+    <section class="videos-section fade-in" id="videos" style="animation-delay: 0.3s">
+        <div class="videos-top">
+            <div>
+                <div class="section-eyebrow" style="margin-bottom: 10px">
+                    <div class="eyebrow-line"></div>
+                    <span class="eyebrow-text">Archivo completo</span>
+                </div>
+                <h2 class="videos-heading">Todos los <span>Videos</span></h2>
+                <div class="videos-count" id="videosCount">Cargando videos del canal...</div>
+            </div>
+            <div class="filter-row" id="filterRow">
+                <button class="f-btn on" onclick="setFilter('', this)">TODOS</button>
+            </div>
         </div>
 
-        <div class="ad-slide" onclick="this.style.opacity=.8">
-          <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80" alt="Publicidad 2">
-          <div class="ad-overlay">
-            <div class="ad-text">
-              <div class="ad-tag">Pauta con nosotros</div>
-              Audiencia local<br>y nacional
+        <div class="vgrid" id="vgrid">
+            <!-- Skeletons mientras carga -->
+            <div class="vcard" style="pointer-events: none;" id="sk1">
+                <div class="vthumb skeleton" style="padding-top: 56.25%"></div>
+                <div class="vinfo">
+                    <div class="skeleton" style="height: 10px; width: 60%; margin-bottom: 10px"></div>
+                    <div class="skeleton" style="height: 14px; margin-bottom: 6px"></div>
+                    <div class="skeleton" style="height: 14px; width: 70%"></div>
+                </div>
             </div>
-          </div>
+            <div class="vcard" style="pointer-events: none;" id="sk2">
+                <div class="vthumb skeleton" style="padding-top: 56.25%"></div>
+                <div class="vinfo">
+                    <div class="skeleton" style="height: 10px; width: 60%; margin-bottom: 10px"></div>
+                    <div class="skeleton" style="height: 14px; margin-bottom: 6px"></div>
+                    <div class="skeleton" style="height: 14px; width: 70%"></div>
+                </div>
+            </div>
+            <div class="vcard" style="pointer-events: none;" id="sk3">
+                <div class="vthumb skeleton" style="padding-top: 56.25%"></div>
+                <div class="vinfo">
+                    <div class="skeleton" style="height: 10px; width: 60%; margin-bottom: 10px"></div>
+                    <div class="skeleton" style="height: 14px; margin-bottom: 6px"></div>
+                    <div class="skeleton" style="height: 14px; width: 70%"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="ad-slide" onclick="this.style.opacity=.8">
-          <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&q=80" alt="Publicidad 3">
-          <div class="ad-overlay">
-            <div class="ad-text">
-              <div class="ad-tag">Espacio disponible</div>
-              Contacta a<br>Cuarto Poder Radio
+        <div class="load-more-wrap">
+            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()" style="display: none;">
+                CARGAR MÁS VIDEOS
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="margin-bottom: 120px;">
+        <div class="footer-inner">
+            <div class="footer-brand">Henry Forero — <span>Cuarto Poder Radio</span></div>
+            <ul class="footer-links">
+                <li><a href="#vivo">En Vivo</a></li>
+                <li><a href="#slider">Publicidad</a></li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="https://youtube.com/@henryforero7257" target="_blank">YouTube</a></li>
+            </ul>
+            <div class="footer-copy">© 2025 — TODOS LOS DERECHOS RESERVADOS</div>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-bg" id="modal" onclick="handleModalClick(event)">
+        <div class="modal-box">
+            <div class="mhead">
+                <div class="mhead-title" id="modalTitle">Video</div>
+                <button class="mclose" onclick="closeModal()">✕</button>
             </div>
-          </div>
+            <div class="mframe">
+                <iframe id="modalFrame" src="" allowfullscreen allow="autoplay; encrypted-media" title="Video"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- RADIO PLAYER -->
+    <div class="radio-player" id="radioPlayer">
+        <div class="radio-left">
+            <button class="radio-btn" id="radioPlayBtn" onclick="toggleRadio()">▶</button>
+            <div class="equalizer" id="equalizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
         </div>
 
-        <div class="ad-slide" onclick="this.style.opacity=.8">
-          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&q=80" alt="Publicidad 4">
-          <div class="ad-overlay">
-            <div class="ad-text">
-              <div class="ad-tag">Anúnciate</div>
-              Medios digitales<br>al alcance de todos
+        <div class="radio-info">
+            <div class="radio-status">
+                <div class="live-indicator"></div>
+                AL AIRE
             </div>
-          </div>
+            <div class="radio-title">Cuarto Poder Radio</div>
         </div>
 
-      </div>
-      <button class="ads-arrow left" id="ads-prev">‹</button>
-      <button class="ads-arrow right" id="ads-next">›</button>
-    </div>
-    <div class="ads-dots" id="ads-dots"></div>
-  </div>
-
-  <!-- GRID PRINCIPAL -->
-  <div class="main-grid" id="en-vivo">
-
-    <!-- VIDEO PRINCIPAL -->
-    <div class="main-video-wrap fade-in">
-      <div class="video-header">
-        <div class="live-badge"><div class="live-dot"></div> EN VIVO</div>
-        <div class="video-title-bar">Henry Forero · Cuarto Poder Radio</div>
-      </div>
-      <div class="video-embed">
-        <iframe id="live-frame"
-          src="https://www.youtube.com/embed/live_stream?channel=UCubPnuTolaj0cJv0SK67rcw&autoplay=0&rel=0&modestbranding=1"
-          allowfullscreen allow="autoplay; encrypted-media">
-        </iframe>
-      </div>
-    </div>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <div class="sidebar-card fade-in">
-        <div class="sc-header">📡 Canal</div>
-        <div class="sc-body">
-          <div class="channel-avatar">🎙</div>
-          <div class="channel-name">Henry Forero</div>
-          <div class="channel-sub">Cuarto Poder Radio</div>
-          <div class="stats-row">
-            <div class="stat-box">
-              <div class="stat-n">154</div>
-              <div class="stat-l">Suscriptores</div>
+        <div class="radio-middle">
+            <div class="volume-control">
+                <div class="volume-icon">🔊</div>
+                <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider" onchange="setVolume(this.value)">
             </div>
-            <div class="stat-box">
-              <div class="stat-n" id="video-count">—</div>
-              <div class="stat-l">Videos</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-n">Diario</div>
-              <div class="stat-l">Transmisión</div>
-            </div>
-          </div>
-          <a class="subscribe-btn" href="https://www.youtube.com/@henryforero7257?sub_confirmation=1" target="_blank" rel="noopener">
-            ▶ Suscríbete al canal
-          </a>
         </div>
-      </div>
-
-      <div class="sidebar-card fade-in">
-        <div class="sc-header">🔗 Redes</div>
-        <div class="sc-body">
-          <div class="social-links">
-            <a class="social-link" href="https://www.youtube.com/@henryforero7257" target="_blank" rel="noopener">
-              <span class="si">▶</span> YouTube
-            </a>
-            <a class="social-link" href="#" target="_blank" rel="noopener">
-              <span class="si">f</span> Facebook
-            </a>
-            <a class="social-link" href="#" target="_blank" rel="noopener">
-              <span class="si">𝕏</span> Twitter / X
-            </a>
-            <a class="social-link" href="https://wa.me/57000000000" target="_blank" rel="noopener">
-              <span class="si">💬</span> WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </aside>
-  </div>
-
-  <!-- GALERÍA PODCASTS -->
-  <div id="podcast">
-    <div class="section-heading">
-      <div class="sh-bar"></div>
-      <div class="sh-title">Podcast — Últimas Emisiones</div>
-      <div class="sh-count" id="videos-count"></div>
     </div>
-    <div class="videos-grid" id="videos-grid">
-      <!-- Skeleton loaders -->
-      <div class="video-card" style="opacity:.3" id="skel1"></div>
-      <div class="video-card" style="opacity:.3" id="skel2"></div>
-      <div class="video-card" style="opacity:.3" id="skel3"></div>
+
+    <!-- WHATSAPP BUBBLE -->
+    <div class="whatsapp-bubble" onclick="openWhatsApp()">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.547 4.125 1.5 5.86L0 24l6.373-1.462A12 12 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.937 0-3.837-.53-5.508-1.529l-.397-.23-4.11.95.964-3.977-.236-.375A10 10 0 1 1 12 22zm5.506-4.213c-.293-.147-1.738-.86-2.01-.96-.273-.1-.472-.147-.67.147-.2.293-.77.96-.944 1.162-.175.2-.35.223-.644.075-.293-.147-1.237-.456-2.356-1.455-.87-.775-1.46-1.734-1.63-2.027-.165-.293-.017-.45.124-.597.127-.128.293-.334.44-.5.147-.165.196-.293.294-.49.1-.194.05-.364-.025-.51-.075-.147-.67-1.616-.92-2.206-.24-.56-.487-.484-.67-.493-.174-.008-.374-.01-.574-.01-.2 0-.524.075-.799.364-.274.29-1.046 1.021-1.046 2.488 0 1.467 1.07 2.89 1.22 3.088.147.198 2.073 3.168 5.02 4.443.702.303 1.25.484 1.675.62.704.227 1.345.195 1.85.118.564-.084 1.74-.711 1.986-1.398.246-.687.246-1.275.172-1.399-.073-.124-.27-.198-.564-.345z"/>
+        </svg>
+        <div class="whatsapp-tooltip">Contáctanos</div>
     </div>
-  </div>
 
-</div><!-- /page-wrapper -->
+    <!-- AUDIO TAG -->
+    <audio id="radioStream" crossorigin="anonymous"></audio>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Video</div>
-      <button class="modal-close" id="modal-close">✕</button>
-    </div>
-    <div class="modal-video">
-      <iframe id="modal-frame" src="" allowfullscreen
-        allow="autoplay; encrypted-media"></iframe>
-    </div>
-  </div>
-</div>
+    <script>
+        // ════════════════════════════════════════
+        // CONFIGURACIÓN
+        // ════════════════════════════════════════
+        const YT_API_KEY = 'AIzaSyCdWxkJGmL0Hq5bn_MX_XoTuuoTk6JMjT8';
+        const CHANNEL_ID = 'UCubPnuTolaj0cJv0SK67rcw';
+        const RADIO_STREAM = 'https://streaming.radiosenlinea.com.ar/8224/stream';
+        const WHATSAPP_NUMBER = '34xxxxxxxxx'; // Cambiar por número real
 
-<!-- FOOTER -->
-<footer>
-  <span>CUARTO PODER RADIO</span> · Henry Forero · Todos los derechos reservados © 2026
-</footer>
+        // IMÁGENES DEL SLIDER (CAMBIA ESTAS URLs PARA TUS IMÁGENES)
+        const AD_IMAGES = [
+            'https://images.unsplash.com/photo-1611339555312-e607c90352fd?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1557821552-17105176677c?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1460925895917-adf4e566e71b?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1507238691740-187a5b1169b7?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1518611505868-48510c2e2e80?w=1200&h=400&fit=crop',
+            'https://images.unsplash.com/photo-1542744095-291d1f3fb3ce?w=1200&h=400&fit=crop'
+        ];
 
-<!-- ══════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════ -->
-<script>
-// ─── RELOJ ──────────────────────────────────
-const clock = document.getElementById('clock');
-function updateClock() {
-  const now = new Date();
-  let h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-  const am = h >= 12 ? 'PM' : 'AM';
-  h = h % 12 || 12;
-  clock.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${am}`;
-}
-setInterval(updateClock, 1000); updateClock();
+        // ════════════════════════════════════════
+        // SLIDER
+        // ════════════════════════════════════════
+        let currentSlide = 0;
+        const sliderInner = document.getElementById('sliderInner');
+        const dotsContainer = document.getElementById('dotsContainer');
 
-// ─── ADS SLIDER ─────────────────────────────
-const adsTrack = document.getElementById('ads-track');
-const adsDots  = document.getElementById('ads-dots');
-const slides   = adsTrack.querySelectorAll('.ad-slide');
-let adIdx = 0, adTimer;
+        function initSlider() {
+            AD_IMAGES.forEach((img, i) => {
+                const div = document.createElement('div');
+                div.className = 'slider-item';
+                div.innerHTML = `<img src="${img}" alt="Publicidad ${i + 1}" onerror="this.src='https://via.placeholder.com/1200x400?text=Publicidad+${i+1}'">`;
+                sliderInner.appendChild(div);
 
-function buildDots() {
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'ads-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goAd(i);
-    adsDots.appendChild(d);
-  });
-}
-function goAd(n) {
-  adIdx = (n + slides.length) % slides.length;
-  adsTrack.style.transform = `translateX(-${adIdx * 100}%)`;
-  adsDots.querySelectorAll('.ads-dot').forEach((d,i) => d.classList.toggle('active', i === adIdx));
-}
-function startAdTimer() {
-  clearInterval(adTimer);
-  adTimer = setInterval(() => goAd(adIdx + 1), 5000);
-}
-document.getElementById('ads-prev').onclick = () => { goAd(adIdx - 1); startAdTimer(); };
-document.getElementById('ads-next').onclick = () => { goAd(adIdx + 1); startAdTimer(); };
-buildDots(); startAdTimer();
+                const dot = document.createElement('div');
+                dot.className = `dot ${i === 0 ? 'active' : ''}`;
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            });
 
-// ─── AUTO-DJ PLAYER ─────────────────────────
-const CHANNEL_ID = 'UCubPnuTolaj0cJv0SK67rcw';
-const YT_API_KEY = 'AIzaSyCdWxkJGmL0Hq5bn_MX_XoTuuoTk6JMjT8';
+            setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
 
-let playlist = [];
-let djIdx    = 0;
-let djPlaying = false;
-let djProgressTimer;
-let djProgress = 0;
+        function updateSlider() {
+            sliderInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+            document.getElementById('sliderCounter').textContent = `${currentSlide + 1} / ${AD_IMAGES.length}`;
+        }
 
-const rpPlay  = document.getElementById('rp-play');
-const rpPrev  = document.getElementById('rp-prev');
-const rpNext  = document.getElementById('rp-next');
-const rpTitle = document.getElementById('rp-track-title');
-const rpBar   = document.getElementById('rp-bar');
-const rpDisc  = document.getElementById('rp-disc');
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % AD_IMAGES.length;
+            updateSlider();
+        }
 
-function djLoad(videos) {
-  // Shuffle
-  playlist = [...videos].sort(() => Math.random() - .5);
-  document.getElementById('video-count').textContent = videos.length;
-  djSetTrack(0);
-  // Autoplay inmediato
-  setTimeout(() => djPlay(), 800);
-}
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + AD_IMAGES.length) % AD_IMAGES.length;
+            updateSlider();
+        }
 
-function djSetTrack(n) {
-  djIdx = (n + playlist.length) % playlist.length;
-  const v = playlist[djIdx];
-  rpTitle.style.opacity = '0';
-  setTimeout(() => {
-    rpTitle.textContent = v.snippet.title;
-    rpTitle.style.opacity = '1';
-  }, 300);
-  djProgress = 0;
-  rpBar.style.width = '0%';
-}
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
 
-function djPlay() {
-  if (!playlist.length) return;
-  const v = playlist[djIdx];
-  // Open modal with autoplay
-  openModal(v.id.videoId, v.snippet.title, true);
-  djPlaying = true;
-  rpPlay.textContent = '⏸ Pausar';
-  rpDisc.style.animationPlayState = 'running';
-  clearInterval(djProgressTimer);
-  djProgress = 0;
-  djProgressTimer = setInterval(() => {
-    djProgress = Math.min(djProgress + 100/720, 100); // ~12 min avg
-    rpBar.style.width = djProgress + '%';
-    if (djProgress >= 100) { djNext(); }
-  }, 1000);
-}
+        // ════════════════════════════════════════
+        // DATOS DE VIDEOS — YouTube Data API v3
+        // ════════════════════════════════════════
+        let allVideos = [];
+        let filtered = [];
+        let shown = 0;
+        let nextPageToken = '';
+        const PER_PAGE = 12;
 
-function djPause() {
-  djPlaying = false;
-  rpPlay.textContent = '▶ Reproducir';
-  rpDisc.style.animationPlayState = 'paused';
-  clearInterval(djProgressTimer);
-  closeModal();
-}
+        async function loadVideos() {
+            try {
+                await fetchVideos();
+            } catch (e) {
+                console.error(e);
+                document.getElementById('videosCount').textContent = 'Error cargando videos.';
+            }
+        }
 
-function djNext() {
-  closeModal();
-  djSetTrack(djIdx + 1);
-  setTimeout(() => { if(djPlaying) djPlay(); }, 400);
-}
+        async function fetchVideos(pageToken = '') {
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=50&order=date&type=video${pageToken ? '&pageToken=' + pageToken : ''}&key=${YT_API_KEY}`;
+            const res = await fetch(url);
+            const data = await res.json();
 
-function djPrevious() {
-  closeModal();
-  djSetTrack(djIdx - 1);
-  setTimeout(() => { if(djPlaying) djPlay(); }, 400);
-}
+            if (data.error) throw new Error(data.error.message);
 
-rpPlay.onclick = () => { if(djPlaying) djPause(); else djPlay(); };
-rpNext.onclick = () => djNext();
-rpPrev.onclick = () => djPrevious();
+            const newVideos = data.items.map((item, i) => ({
+                id: item.id.videoId,
+                title: item.snippet.title,
+                date: item.snippet.publishedAt,
+                thumb: item.snippet.thumbnails?.medium?.url || `https://img.youtube.com/vi/${item.id.videoId}/mqdefault.jpg`,
+                isNew: allVideos.length === 0 && i < 3
+            }));
 
-// ─── MODAL ──────────────────────────────────
-const modal      = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalFrame = document.getElementById('modal-frame');
-const modalClose = document.getElementById('modal-close');
+            allVideos = [...allVideos, ...newVideos];
+            nextPageToken = data.nextPageToken || '';
 
-function openModal(videoId, title, autoplay = false) {
-  modalTitle.textContent = title;
-  modalFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay ? 1 : 0}&rel=0&modestbranding=1`;
-  modal.classList.add('open');
-}
-function closeModal() {
-  modal.classList.remove('open');
-  modalFrame.src = '';
-}
-modalClose.onclick = closeModal;
-modal.onclick = (e) => { if(e.target === modal) closeModal(); };
-document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+            document.getElementById('statVids').textContent = allVideos.length + (nextPageToken ? '+' : '');
+            document.getElementById('videosCount').textContent = `${allVideos.length} videos encontrados`;
 
-// ─── YOUTUBE API — CARGAR VIDEOS ─────────────
-const videosGrid  = document.getElementById('videos-grid');
-const videosCount = document.getElementById('videos-count');
+            filtered = [...allVideos];
+            renderVideos(allVideos.length === newVideos.length);
+        }
 
-// Videos extraídos del HTML original (fallback rápido)
-const STATIC_VIDEOS = [
-  { id: { videoId: 'djt6KCpybmM' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 4 MARZO DE 2026-',       publishedAt: '2026-03-04T12:00:00Z' } },
-  { id: { videoId: 'DwHi-R-0R1o' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 3 DE MARZO DE 2026-',     publishedAt: '2026-03-03T12:00:00Z' } },
-  { id: { videoId: 'MxrtagqBbK0' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 2 DE MARZO DE 2026-',     publishedAt: '2026-03-02T12:00:00Z' } },
-  { id: { videoId: '-SRcX4uM6ps' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 26 DE FEBRERO DE 2026-',  publishedAt: '2026-02-28T12:00:00Z' } },
-  { id: { videoId: 'sghnEI8fG8Q' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 26 FEBRERO DE 2026-',    publishedAt: '2026-02-27T12:00:00Z' } },
-  { id: { videoId: 'afr5qH5G1Gc' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 25 DE FEBRERO DE 2026',    publishedAt: '2026-02-26T12:00:00Z' } },
-  { id: { videoId: 'WWw1IjKtyAA' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 24 FEBRERO DE 2026',       publishedAt: '2026-02-25T12:00:00Z' } },
-  { id: { videoId: 'zAIF2HUAxoo' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 23 DE FEBRERO DE 2026',    publishedAt: '2026-02-24T12:00:00Z' } },
-  { id: { videoId: 'KddrQ494iyc' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 20 FEBRERO DE 2026-',    publishedAt: '2026-02-21T12:00:00Z' } },
-  { id: { videoId: 'HgST9iUaLg0' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 19 DE FEBRERO DE 2026-', publishedAt: '2026-02-20T12:00:00Z' } },
-  { id: { videoId: 'KeQ6ZaF7b2Q' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 18 DE FEBRERO DE 2026',   publishedAt: '2026-02-19T12:00:00Z' } },
-  { id: { videoId: 'bShX65H-3Ak' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 13 DE FEBRERO DE 2026-', publishedAt: '2026-02-14T12:00:00Z' } },
-  { id: { videoId: 'Dhpp0mc6Ims' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO 12 FEBRERO 2026',         publishedAt: '2026-02-13T12:00:00Z' } },
-  { id: { videoId: 'ONislLgguOw' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 11 FEBRERO DE 2026-',   publishedAt: '2026-02-12T12:00:00Z' } },
-  { id: { videoId: 'LY_ZE1YFDJE' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 10 de febrero de 2025-', publishedAt: '2026-02-11T12:00:00Z' } },
-  { id: { videoId: 'xlq-bttyLYI' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 9 DE FEBRERO DE 2026-', publishedAt: '2026-02-10T12:00:00Z' } },
-  { id: { videoId: 'H0H_WWuH48c' }, snippet: { title: '#alaire CUARTO PODER RADIO 19 ENERO DE 2026',                        publishedAt: '2026-01-19T12:00:00Z' } },
-  { id: { videoId: 'mFIIDDR8QSc' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 15 ENERO DE 2026-',     publishedAt: '2026-01-15T12:00:00Z' } },
-  { id: { videoId: '1Nd1P1jNBYw' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 9 ENERO DE 2026-',      publishedAt: '2026-01-09T12:00:00Z' } },
-  { id: { videoId: 'Hs4CMXn4sC4' }, snippet: { title: '#alaire HENRY FORERO EN CUARTO PODER RADIO - 29 ENERO DE 2026 -',   publishedAt: '2026-01-29T12:00:00Z' } },
-];
+        function relDate(dateStr) {
+            const d = new Date(dateStr);
+            const diff = Math.floor((Date.now() - d) / 1000);
 
-function renderVideos(videos) {
-  // Remove skeletons
-  ['skel1','skel2','skel3'].forEach(id => { const el = document.getElementById(id); if(el) el.remove(); });
+            if (diff < 3600) return `hace ${Math.floor(diff / 60)} min`;
+            if (diff < 86400) return `hace ${Math.floor(diff / 3600)} h`;
+            if (diff < 604800) return `hace ${Math.floor(diff / 86400)} días`;
+            if (diff < 2592000) return `hace ${Math.floor(diff / 604800)} semanas`;
 
-  videosCount.textContent = `${videos.length} episodios`;
+            return d.toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
 
-  videos.forEach((v, i) => {
-    const vid  = v.id.videoId || v.id;
-    const title = v.snippet.title;
-    const date = new Date(v.snippet.publishedAt);
-    const dateStr = date.toLocaleDateString('es-CO', { day:'numeric', month:'long', year:'numeric' });
-    const thumb = `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
-    const isNew = i < 3;
+        function renderVideos(reset = false) {
+            const grid = document.getElementById('vgrid');
 
-    const card = document.createElement('div');
-    card.className = 'video-card fade-in';
-    card.style.animationDelay = `${i * 0.05}s`;
-    card.innerHTML = `
-      <div class="vc-thumb">
-        <img src="${thumb}" alt="${title}" loading="lazy">
-        <div class="vc-play"><div class="vc-play-icon">▶</div></div>
-        ${isNew ? '<div class="vc-new">NUEVO</div>' : ''}
-      </div>
-      <div class="vc-body">
-        <div class="vc-title">${title}</div>
-        <div class="vc-meta">${dateStr}</div>
-      </div>
-    `;
-    card.onclick = () => openModal(vid, title);
-    videosGrid.appendChild(card);
-  });
+            if (reset) {
+                shown = 0;
+                grid.innerHTML = '';
+            }
 
-  // Feed al DJ
-  djLoad(videos);
-}
+            ['sk1', 'sk2', 'sk3'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.remove();
+            });
 
-async function fetchFromAPI() {
-  try {
-    let videos = [], token = '', pages = 0;
-    do {
-      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&order=date&maxResults=50${token ? '&pageToken=' + token : ''}&key=${YT_API_KEY}`;
-      const res  = await fetch(url);
-      const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      videos.push(...(data.items || []));
-      token = data.nextPageToken || '';
-      pages++;
-    } while (token && pages < 4);
-    return videos;
-  } catch(e) {
-    console.warn('API error, usando datos estáticos:', e);
-    return null;
-  }
-}
+            const slice = filtered.slice(shown, shown + PER_PAGE);
+            shown += slice.length;
 
-(async function init() {
-  const apiVideos = await fetchFromAPI();
-  renderVideos(apiVideos && apiVideos.length ? apiVideos : STATIC_VIDEOS);
-})();
-</script>
+            slice.forEach((v, i) => {
+                if (!v.id) return;
+
+                const card = document.createElement('div');
+                card.className = 'vcard';
+                card.style.animationDelay = (i * 0.05) + 's';
+                card.innerHTML = `
+                    <div class="vthumb">
+                        <img src="${v.thumb}" alt="${v.title}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${v.id}/mqdefault.jpg'">
+                        <div class="voverlay">
+                            <div class="vplay">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        ${v.isNew ? '<div class="vnew-badge">NUEVO</div>' : ''}
+                    </div>
+                    <div class="vinfo">
+                        <div class="vmeta">${relDate(v.date)}</div>
+                        <div class="vtitle">${v.title}</div>
+                        <div class="vstats"><span>▶ YouTube</span></div>
+                    </div>
+                `;
+
+                card.onclick = () => openModal(v.id, v.title);
+                grid.appendChild(card);
+            });
+
+            const btn = document.getElementById('loadMoreBtn');
+            btn.style.display = shown < filtered.length ? 'inline-block' : 'none';
+        }
+
+        function loadMore() {
+            if (shown < filtered.length) {
+                renderVideos();
+            } else if (nextPageToken) {
+                const btn = document.getElementById('loadMoreBtn');
+                btn.textContent = 'CARGANDO...';
+                btn.disabled = true;
+
+                fetchVideos(nextPageToken).then(() => {
+                    filtered = [...allVideos];
+                    btn.textContent = 'CARGAR MÁS VIDEOS';
+                    btn.disabled = false;
+                });
+            }
+        }
+
+        function setFilter(cat, el) {
+            document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('on'));
+            el.classList.add('on');
+            filtered = cat ? allVideos.filter(v => v.cat === cat) : [...allVideos];
+            renderVideos(true);
+        }
+
+        // ════════════════════════════════════════
+        // MODAL
+        // ════════════════════════════════════════
+        function openModal(id, title) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalFrame').src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+            document.getElementById('modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('open');
+            document.getElementById('modalFrame').src = '';
+            document.body.style.overflow = '';
+        }
+
+        function handleModalClick(e) {
+            if (e.target === document.getElementById('modal')) closeModal();
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ════════════════════════════════════════
+        // RADIO
+        // ════════════════════════════════════════
+        const radioStream = document.getElementById('radioStream');
+        const radioPlayBtn = document.getElementById('radioPlayBtn');
+        let isPlaying = false;
+
+        radioStream.src = RADIO_STREAM;
+
+        function toggleRadio() {
+            if (isPlaying) {
+                radioStream.pause();
+                radioPlayBtn.textContent = '▶';
+                document.getElementById('equalizer').style.animation = 'none';
+            } else {
+                radioStream.play();
+                radioPlayBtn.textContent = '⏸';
+                document.getElementById('equalizer').style.animation = 'wave 0.6s ease-in-out infinite';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function setVolume(val) {
+            radioStream.volume = val / 100;
+        }
+
+        // ════════════════════════════════════════
+        // WHATSAPP
+        // ════════════════════════════════════════
+        function openWhatsApp() {
+            const msg = 'Hola, me gustaría contactar a Cuarto Poder Radio.';
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        // ════════════════════════════════════════
+        // CLOCK
+        // ════════════════════════════════════════
+        function updateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const date = now.toLocaleDateString('es', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase();
+            document.getElementById('navTime').textContent = `${time} — ${date}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // ════════════════════════════════════════
+        // INIT
+        // ════════════════════════════════════════
+        initSlider();
+        loadVideos();
+    </script>
 </body>
 </html>
