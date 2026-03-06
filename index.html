@@ -122,9 +122,18 @@ body {
 }
 @keyframes shimmer-banner { 0%,100%{opacity:0} 50%{opacity:1} }
 .banner-header img.banner-img {
-  width: 100%; max-width: 1280px;
-  height: auto; max-height: 140px;
-  object-fit: cover; display: block;
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+@media (max-width: 768px) {
+  .banner-header img.banner-img { max-height: 120px; }
+}
+@media (max-width: 480px) {
+  .banner-header img.banner-img { max-height: 80px; }
 }
 .banner-placeholder {
   width: 100%; max-width: 1280px;
@@ -802,12 +811,7 @@ footer span { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0,229,255,.5); 
 
 <!-- BANNER -->
 <div class="banner-header">
-  <!-- Reemplaza con: <img class="banner-img" src="TU-BANNER.jpg" alt="Cuarto Poder Radio"> -->
-  <div class="banner-placeholder">
-    <div class="bp-title">CUARTO PODER RADIO</div>
-    <div class="bp-sub">Henry Forero · Periodismo Independiente</div>
-    <div class="bp-hint">[ Reemplaza con tu imagen banner — 1280×130 px recomendado ]</div>
-  </div>
+  <img class="banner-img" src="https://raw.githubusercontent.com/conectadosturadio/BANWER-4TO-PODER-RAdio/refs/heads/main/baner-4to-poder-raDIO.png" alt="Cuarto Poder Radio - Henry Forero">
 </div>
 
 <!-- NAV -->
@@ -817,7 +821,7 @@ footer span { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0,229,255,.5); 
     <div class="nav-links">
       <a href="#en-vivo" class="active">En Vivo</a>
       <a href="#podcast">Podcast</a>
-      <a href="mailto:contacto@henryforero.com">Contacto</a>
+      <a href="/cdn-cgi/l/email-protection#f2919d9c869391869db29a979c808b949d8097809ddc919d9f">Contacto</a>
     </div>
     <div class="nav-clock" id="clock">--:-- --</div>
   </div>
@@ -1010,7 +1014,7 @@ footer span { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0,229,255,.5); 
 </div>
 
 <!-- ══════════════════ JS ══════════════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── RELOJ ───────────────────────────────
 const clock = document.getElementById('clock');
 function updateClock() {
@@ -1296,9 +1300,4 @@ pagNext.onclick = () => {
       <div style="font-size:2rem;margin-bottom:12px">📡</div>
       <div style="font-family:'Rajdhani',sans-serif;font-size:1rem;margin-bottom:8px">No se pudo conectar con YouTube</div>
       <div style="font-size:.8rem;color:var(--gris-medio)">Verifica tu conexión e intenta recargar la página</div>
-      <button onclick="location.reload()" style="margin-top:16px;padding:9px 24px;background:var(--neon-glow);color:var(--negro);border:none;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:700;cursor:pointer;letter-spacing:.1em">🔄 Recargar</button>
-    </div>`;
-})();
-</script>
-</body>
-</html>
+      <button onclick="location.reload()" style="margin-top:16px;padding:9px 24px;background:var(--neon-glow);color:var(--negro);border:none;border-radius:6px
